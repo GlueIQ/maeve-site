@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Long View Podcast | MAEVE</title>
+  <meta name="description" content="Real conversations about the moments that change everything. A bi-weekly podcast by Maeve exploring wealth, legal navigation, care planning, and life transitions.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#001a0e', 'primary-light': '#132f21',
+            surface: '#faf9f6', 'surface-dim': '#efeeeb', 'surface-container': '#f0eeeb',
+            'on-surface': '#1a1c1a', 'on-primary': '#faf9f6',
+            accent: '#D4C5B0', 'accent-soft': 'rgba(212, 197, 176, 0.15)',
+          },
+          fontFamily: {
+            serif: ['"Noto Serif"', 'Georgia', 'serif'],
+            sans: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/podcast.css">
+
+  <style>
+    /* Custom Stylized Logo 'A' */
+    .slanted-a {
+      position: relative;
+      display: inline-block;
+    }
+    .slanted-a::after {
+      content: '';
+      position: absolute;
+      top: 52%;
+      left: 17%;
+      width: 66%;
+      height: 0.07em;
+      background-color: currentColor;
+      transform: rotate(-12deg);
+      transform-origin: center;
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body class="font-sans bg-surface text-on-surface antialiased">
+
+  <!-- ═══ TopNavBar ═══ -->
+  <header class="bg-[#faf9f6] fixed top-0 left-0 w-full z-50">
+    <div class="flex justify-between items-center w-full px-6 md:px-12 py-5 md:py-6 max-w-[1440px] mx-auto">
+      <a href="index.html" class="flex-shrink-0 font-['Noto_Serif'] text-xl md:text-2xl font-bold text-[#001a0e] tracking-tight uppercase"><span aria-hidden="true">M<span class="slanted-a">&Lambda;</span>EVE</span><span class="sr-only">MAEVE</span></a>
+      <div class="hidden md:flex items-center space-x-12 font-['Noto_Serif'] text-lg tracking-tight">
+        <a class="text-[#1a1c1a]/70 font-medium hover:text-[#001a0e] transition-colors duration-300" href="the-long-view.html">The Long View</a>
+        <a class="text-[#1a1c1a]/70 font-medium hover:text-[#001a0e] transition-colors duration-300" href="tools.html">Tools</a>
+        <a class="text-[#1a1c1a]/70 font-medium hover:text-[#001a0e] transition-colors duration-300" href="community.html">Community</a>
+        <a class="text-[#001a0e] border-b border-[#001a0e] pb-1" href="podcast.html">Podcast</a>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="relative items-center z-50 hidden md:inline-flex">
+          <button id="maeve-dropdown-toggle" class="font-['Plus_Jakarta_Sans'] text-sm font-medium text-[#001a0e] dark:text-[#faf9f6] hover:opacity-70 transition-opacity duration-300 cursor-pointer">Login</button>
+        </div>
+        <button class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2 rounded-sm font-sans text-xs uppercase tracking-widest hover:opacity-80 transition-opacity duration-500 ease-in-out">Start Here →</button>
+        <button class="nav__toggle md:hidden flex flex-col gap-[5px] bg-transparent p-2 cursor-pointer border-none" aria-label="Toggle menu">
+          <span class="block w-6 h-0.5 bg-primary rounded-sm transition-all duration-300"></span>
+          <span class="block w-6 h-0.5 bg-primary rounded-sm transition-all duration-300"></span>
+          <span class="block w-6 h-0.5 bg-primary rounded-sm transition-all duration-300"></span>
+        </button>
+      </div>
+    </div>
+    <div class="bg-[#efeeeb] h-[1px] w-full"></div>
+  </header>
+
+  <!-- Beautiful Maeve Dropdown Overlay -->
+  <div id="maeve-dropdown-overlay" class="fixed top-[74px] left-0 right-0 z-[45] bg-primary overflow-hidden opacity-0 pointer-events-none transition-all duration-300 ease-out border-b border-primary-light transform -translate-y-4">
+    <!-- Noise texture overlay -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E')"></div>
+    
+    <div class="max-w-[900px] mx-auto px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+      <!-- Member Card -->
+      <a href="http://localhost:5173/member" class="block bg-surface rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-serif text-base font-semibold">SM</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Member Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-primary mb-2 font-normal">Welcome back, Sarah</h3>
+        <p class="font-sans text-[14px] text-on-surface opacity-70 leading-relaxed">Continue your journey through Phase 2: Strategize. You're 62% through.</p>
+        <div class="mt-4 h-[3px] bg-surface-dim rounded-sm overflow-hidden">
+          <div class="h-full w-[62%] bg-primary rounded-sm transition-all duration-1000 ease-out"></div>
+        </div>
+      </a>
+
+      <!-- Advisor Card -->
+      <a href="http://localhost:5173/advisor" class="block bg-primary-light rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center text-on-primary font-serif text-base font-semibold border border-transparent transition-colors duration-300 group-hover:bg-surface group-hover:text-primary">EA</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Advisor Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-on-primary mb-2 font-normal">Elise Associates</h3>
+        <p class="font-sans text-[14px] text-on-primary opacity-70 leading-relaxed">3 actions required. 2 new documents uploaded by Sarah M.</p>
+        <div class="mt-4 flex gap-2">
+          <span class="px-2 py-1 bg-surface/20 text-on-primary text-[10px] font-bold tracking-wider uppercase rounded-sm border border-transparent">Action Required</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('maeve-dropdown-toggle');
+      const dropdown = document.getElementById('maeve-dropdown-overlay');
+      
+      if (toggle && dropdown) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = dropdown.classList.contains('opacity-100');
+          if (isOpen) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          } else {
+            dropdown.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+            dropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target) && e.target !== toggle) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          }
+        });
+      }
+    });
+  </script>
+
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu fixed inset-0 bg-surface z-[999] flex flex-col items-center justify-center gap-7 opacity-0 pointer-events-none transition-opacity duration-400">
+    <a href="index.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Home</a>
+    <a href="the-long-view.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">The Long View</a>
+    <a href="tools.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Tools</a>
+    <a href="community.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Community</a>
+    <a href="podcast.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Podcast</a>
+  </div>
+
+  <main class="pt-20 md:pt-24">
+
+    <!-- ═══ SECTION 1: HERO ═══ -->
+    <section class="bg-primary text-on-primary relative overflow-hidden" id="hero">
+      <div class="noise-overlay"></div>
+      <div class="absolute top-[-200px] right-[-100px] w-[600px] h-[600px] bg-[#132f21] rounded-full blur-[120px] opacity-40"></div>
+      <div class="absolute bottom-[-100px] left-[-100px] w-[400px] h-[400px] rounded-full blur-[100px] opacity-20" style="background: radial-gradient(circle, rgba(212,197,176,0.3) 0%, transparent 70%)"></div>
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 md:py-32 grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-16 items-center relative z-10">
+        <div class="lg:col-span-7">
+          <span class="font-sans text-xs tracking-[0.3em] uppercase text-[#7a9885] mb-6 block">A Maeve Production</span>
+          <h1 class="serif-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-[#faf9f6] mb-6">The Long View</h1>
+          <p class="font-serif italic text-lg md:text-xl text-[#faf9f6]/70 mb-6 max-w-xl">Real conversations about the moments that change everything.</p>
+          <p class="font-sans text-base md:text-lg text-[#faf9f6]/60 mb-8 max-w-xl leading-relaxed">Bi-weekly deep-dives into wealth, legal strategy, caregiving, and the emotional intelligence of life's biggest transitions — with Margaux Bellamy and Tessa Kincaid.</p>
+          <div class="flex items-center gap-6 mb-8">
+            <span class="font-sans text-sm text-[#D4C5B0] font-semibold">✦ 24 Episodes</span>
+            <span class="text-[#faf9f6]/30">·</span>
+            <span class="font-sans text-sm text-[#faf9f6]/50">4,200+ Listeners</span>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-4 mb-6">
+            <a href="#" class="platform-btn platform-btn--apple" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              Listen on Apple Podcasts
+            </a>
+            <a href="#" class="platform-btn platform-btn--youtube" style="background:rgba(255,255,255,0.1);color:#fff;border-color:rgba(255,255,255,0.2)" target="_blank">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+              Watch on YouTube
+            </a>
+          </div>
+          <a href="#newsletter" class="font-sans text-xs text-[#faf9f6]/40 tracking-wide hover:text-[#faf9f6]/60 transition-colors">New episodes every other Tuesday. Never miss one →</a>
+        </div>
+        <div class="lg:col-span-5 relative">
+          <div class="relative">
+            <div class="absolute inset-0 rounded-lg" style="background: radial-gradient(circle at center, rgba(212,197,176,0.15) 0%, transparent 60%); transform: scale(1.2)"></div>
+            <img src="assets/images/podcast-hosts-together.png" alt="Margaux Bellamy and Tessa Kincaid recording The Long View" class="w-full rounded-lg relative z-10 shadow-2xl">
+          </div>
+          <div class="flex gap-4 mt-6 justify-center relative z-10">
+            <span class="bg-[#132f21] px-4 py-2 rounded-full font-sans text-xs text-[#faf9f6]/70">Margaux Bellamy · CFP®</span>
+            <span class="bg-[#132f21] px-4 py-2 rounded-full font-sans text-xs text-[#faf9f6]/70">Tessa Kincaid · JD</span>
+          </div>
+        </div>
+      </div>
+      <div class="text-center pb-8 relative z-10">
+        <span class="material-symbols-outlined text-[#faf9f6]/30 text-3xl scroll-indicator inline-block">expand_more</span>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 2: LATEST EPISODE ═══ -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 md:py-32 reveal" id="latest">
+      <span class="font-sans text-xs tracking-[0.2em] uppercase text-on-surface/40 mb-4 block">Latest Episode</span>
+      <div class="featured-episode" id="featured-episode-card">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 3: EPISODE LIBRARY ═══ -->
+    <section class="bg-surface-container py-20 md:py-32 border-y border-surface-dim/60 lazy-section" id="library">
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12">
+        <div class="mb-12">
+          <span class="font-sans text-xs tracking-[0.2em] uppercase text-on-surface/40 mb-4 block">The Archive</span>
+          <h2 class="serif-display text-3xl md:text-5xl text-primary mb-4">One year. Twenty-four conversations. All of them matter.</h2>
+        </div>
+        <div class="flex flex-wrap gap-3 mb-10" id="filter-tabs">
+          <!-- Populated by JS -->
+        </div>
+        <div class="episode-grid" id="episode-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 4: MEET THE HOSTS ═══ -->
+    <section class="bg-primary text-on-primary py-20 md:py-32 relative overflow-hidden lazy-section" id="hosts">
+      <div class="noise-overlay"></div>
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
+        <span class="font-sans text-xs tracking-[0.3em] uppercase text-[#7a9885] mb-4 block">Your Hosts</span>
+        <h2 class="serif-display text-3xl md:text-5xl text-[#faf9f6] mb-16">Meet Margaux &amp; Tessa</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-start">
+          <!-- Host A -->
+          <div class="lg:pr-16" id="host-a-col">
+            <img src="assets/images/host-margaux.png" alt="Margaux Bellamy" class="w-48 h-48 rounded-full object-cover mb-8 border-2 border-primary/20">
+            <h3 class="serif-display text-2xl md:text-3xl text-[#faf9f6] mb-2">Margaux Bellamy</h3>
+            <p class="font-sans text-sm text-[#7a9885] mb-6">Co-founder, Maeve · CFP®, CDFA®</p>
+            <p class="font-sans text-[#faf9f6]/60 leading-relaxed mb-8" id="host-a-bio"></p>
+            <blockquote class="border-l-2 border-primary/40 pl-6 mb-8">
+              <p class="font-serif italic text-[#faf9f6]/80 text-lg leading-relaxed" id="host-a-quote"></p>
+              <cite class="font-sans text-xs text-primary/60 mt-3 block not-italic" id="host-a-cite"></cite>
+            </blockquote>
+            <div class="flex gap-4">
+              <a href="#" class="font-sans text-xs uppercase tracking-widest text-[#faf9f6]/40 hover:text-[#faf9f6]/70 transition-colors">LinkedIn</a>
+              <a href="#" class="font-sans text-xs uppercase tracking-widest text-[#faf9f6]/40 hover:text-[#faf9f6]/70 transition-colors">Instagram</a>
+            </div>
+          </div>
+          <!-- Divider -->
+          <div class="host-divider-desktop hidden lg:block absolute left-1/2 top-[180px] bottom-[180px]" style="width:1px;background:rgba(212,197,176,0.2)"></div>
+          <!-- Host B -->
+          <div class="lg:pl-16" id="host-b-col">
+            <img src="assets/images/host-tessa.png" alt="Tessa Kincaid" class="w-48 h-48 rounded-full object-cover mb-8 border-2 border-primary/20">
+            <h3 class="serif-display text-2xl md:text-3xl text-[#faf9f6] mb-2">Tessa Kincaid</h3>
+            <p class="font-sans text-sm text-[#7a9885] mb-6">Co-founder, Maeve · JD, CLU®</p>
+            <p class="font-sans text-[#faf9f6]/60 leading-relaxed mb-8" id="host-b-bio"></p>
+            <blockquote class="border-l-2 border-primary/40 pl-6 mb-8">
+              <p class="font-serif italic text-[#faf9f6]/80 text-lg leading-relaxed" id="host-b-quote"></p>
+              <cite class="font-sans text-xs text-primary/60 mt-3 block not-italic" id="host-b-cite"></cite>
+            </blockquote>
+            <div class="flex gap-4">
+              <a href="#" class="font-sans text-xs uppercase tracking-widest text-[#faf9f6]/40 hover:text-[#faf9f6]/70 transition-colors">LinkedIn</a>
+              <a href="#" class="font-sans text-xs uppercase tracking-widest text-[#faf9f6]/40 hover:text-[#faf9f6]/70 transition-colors">Instagram</a>
+            </div>
+          </div>
+        </div>
+        <!-- Together photo + caption -->
+        <div class="mt-20 text-center">
+          <img src="assets/images/podcast-hosts-together.png" alt="Margaux and Tessa laughing together" class="max-w-lg mx-auto rounded-lg opacity-80 mb-6">
+          <p class="font-serif italic text-sm text-[#faf9f6]/40">Recorded in Charleston, SC, bi-weekly since February 2025.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 5: LISTENER REVIEWS ═══ -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 md:py-32 lazy-section" id="reviews">
+      <div class="text-center mb-16">
+        <h2 class="serif-display text-3xl md:text-5xl text-primary italic mb-4">What listeners are saying.</h2>
+        <div class="flex items-center justify-center gap-3 mt-6">
+          <span class="text-primary text-lg tracking-wider">★★★★★</span>
+          <span class="font-sans text-sm font-semibold text-on-surface/70">4.9 out of 5</span>
+          <span class="text-on-surface/30">·</span>
+          <span class="font-sans text-sm text-on-surface/50">Based on 312 ratings · Apple Podcasts</span>
+        </div>
+      </div>
+      <div class="reviews-masonry" id="reviews-grid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 6: COMPANION TOOLS ═══ -->
+    <section class="bg-surface-container py-20 md:py-32 border-y border-surface-dim/60 lazy-section" id="tools-section">
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12">
+        <div class="text-center mb-16">
+          <span class="font-sans text-xs tracking-[0.2em] uppercase text-on-surface/40 mb-4 block">Companion Resources</span>
+          <h2 class="serif-display text-3xl md:text-5xl text-primary mb-4">Every episode. One tool to take with you.</h2>
+          <p class="font-sans text-on-surface/60 max-w-xl mx-auto">We don't just talk about it. We give you something to do with it.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-grid">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 7: NEWSLETTER ═══ -->
+    <section class="bg-primary text-on-primary py-20 md:py-32 relative overflow-hidden lazy-section" id="newsletter">
+      <div class="noise-overlay"></div>
+      <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-[#132f21] rounded-full blur-[120px] opacity-30"></div>
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12 text-center relative z-10">
+        <h2 class="serif-display text-3xl md:text-5xl text-[#faf9f6] mb-4">The Long View arrives in your inbox.</h2>
+        <p class="font-sans text-[#faf9f6]/60 max-w-lg mx-auto mb-10">Episode notes, companion tools, and the one thing we didn't have time to say on air. Bi-weekly. No noise.</p>
+        <div class="podcast-newsletter" id="newsletter-form-container">
+          <form class="podcast-newsletter__form" id="podcast-newsletter-form" onsubmit="return false;">
+            <input type="email" class="podcast-newsletter__input" placeholder="your.email@example.com" required id="newsletter-email">
+            <button type="submit" class="podcast-newsletter__btn" id="newsletter-btn">Send Me the Notes →</button>
+          </form>
+          <p class="font-sans text-xs text-[#faf9f6]/30 mt-4">4,200 listeners. No spam. Unsubscribe anytime.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 8: WHERE TO LISTEN ═══ -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 md:py-32 lazy-section" id="where-to-listen">
+      <h2 class="serif-display text-3xl md:text-5xl text-primary text-center mb-16">Find us wherever you listen.</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-12">
+        <!-- Apple Podcasts Card -->
+        <div class="platform-card">
+          <svg viewBox="0 0 24 24" fill="#8B5CF6" class="platform-card__logo" style="height:48px;width:48px;margin:0 auto 16px"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <h3 class="platform-card__title">Subscribe on Apple Podcasts</h3>
+          <div class="platform-card__stats">
+            <span class="text-primary">★★★★★</span> 4.9<br>312 ratings
+          </div>
+          <a href="#" class="btn btn--primary w-full justify-center" target="_blank">Open in Apple Podcasts →</a>
+        </div>
+        <!-- YouTube Card -->
+        <div class="platform-card">
+          <svg viewBox="0 0 24 24" fill="#FF0000" style="height:48px;width:48px;margin:0 auto 16px"><path d="M21.543 6.498C22 8.28 22 12 22 12s0 3.72-.457 5.502c-.254.985-.997 1.76-1.938 2.022C17.896 20 12 20 12 20s-5.893 0-7.605-.476c-.945-.266-1.687-1.04-1.938-2.022C2 15.72 2 12 2 12s0-3.72.457-5.502c.254-.985.997-1.76 1.938-2.022C6.107 4 12 4 12 4s5.896 0 7.605.476c.945.266 1.687 1.04 1.938 2.022zM10 15.5l6-3.5-6-3.5v7z"/></svg>
+          <h3 class="platform-card__title">Watch on YouTube</h3>
+          <div class="platform-card__stats">2.1K subscribers<br>48K total views</div>
+          <a href="#" class="btn btn--primary w-full justify-center" target="_blank">Open YouTube Channel →</a>
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-8 text-on-surface/30">
+        <span class="font-sans text-xs uppercase tracking-widest">Also on:</span>
+        <span class="font-sans text-sm font-medium">Spotify</span>
+        <span class="font-sans text-sm font-medium">Amazon Music</span>
+        <span class="font-sans text-sm font-medium">iHeart</span>
+        <span class="font-sans text-sm font-medium">Pocket Casts</span>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION 9: FOOTER CTA ═══ -->
+    <section class="bg-primary py-20 md:py-32 relative overflow-hidden" id="footer-cta">
+      <div class="noise-overlay"></div>
+      <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <div class="w-[800px] h-[800px] bg-[#132f21] rounded-full blur-[120px] absolute -top-40 -left-40"></div>
+      </div>
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12 text-center relative z-10">
+        <h2 class="serif-display text-3xl md:text-5xl lg:text-6xl text-[#faf9f6] italic leading-tight mb-10 max-w-3xl mx-auto">Wherever you are in the transition — you don't have to navigate it alone.</h2>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-10">
+          <a href="index.html" class="bg-surface text-primary px-10 py-4 rounded-md font-medium tracking-wide hover:bg-surface-dim transition-colors">Explore the Maeve Platform →</a>
+          <a href="#" class="text-[#faf9f6] font-sans text-sm tracking-widest uppercase border-b border-[#faf9f6]/40 pb-1 hover:opacity-80 transition-opacity" target="_blank">Listen to the Latest Episode ↗</a>
+        </div>
+        <div class="flex items-center justify-center gap-4 text-[#faf9f6]/30 font-sans text-xs">
+          <span class="uppercase tracking-widest">MAEVE</span>
+          <span>·</span>
+          <span>24 Episodes</span>
+          <span>·</span>
+          <span>A podcast by Maeve · New episodes every other Tuesday</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="bg-surface-dim py-16 md:py-20 mt-0 border-t border-surface-dim" role="contentinfo">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-12 px-6 md:px-12 max-w-[1440px] mx-auto">
+      <div class="col-span-2">
+        <span class="font-serif text-2xl font-semibold text-primary block mb-4 uppercase tracking-tighter"><span aria-hidden="true">M<span class="slanted-a">&Lambda;</span>EVE</span><span class="sr-only">MAEVE</span></span>
+        <p class="font-sans text-sm tracking-wide text-on-surface/50 max-w-xs">Editorial intelligence for the transitions that define a legacy.</p>
+      </div>
+      <div>
+        <h4 class="font-sans text-sm tracking-wide uppercase text-primary font-bold mb-4">Explore</h4>
+        <ul class="space-y-3">
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="the-long-view.html">The Long View</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="podcast.html">Podcast</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="tools.html">Tools</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="community.html">Community</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="for-advisors.html">Advisors</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-sans text-sm tracking-wide uppercase text-primary font-bold mb-4">About</h4>
+        <ul class="space-y-3">
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="#">Careers</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="#">Contact</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary transition-colors" href="#">Legal</a></li>
+        </ul>
+      </div>
+      <div class="col-span-2 md:col-span-4 lg:col-span-5 pt-8 border-t border-on-surface/10 flex flex-col md:flex-row justify-between items-center gap-4">
+        <span class="font-sans text-xs tracking-widest uppercase text-on-surface/40">© 2026 Maeve Editorial. All rights reserved.</span>
+        <div class="flex gap-6">
+          <a class="font-sans text-xs tracking-widest uppercase text-on-surface/40 hover:text-primary transition-colors" href="#">Legal</a>
+          <a class="font-sans text-xs tracking-widest uppercase text-on-surface/40 hover:text-primary transition-colors" href="#">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/podcastData.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/podcastInterstitial.js"></script>
+  <script src="js/podcastPage.js"></script>
+
+  <!-- Demo Trigger -->
+  <button class="demo-trigger" onclick="document.dispatchEvent(new CustomEvent('openPodcastInterstitial'))">▶ Preview Interstitial</button>
+
+</body>
+</html>

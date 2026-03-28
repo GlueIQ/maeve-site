@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAEVE | Strategic Editorial Intelligence</title>
+  <meta name="description" content="Editorial intelligence for the transitions that define a legacy. Navigate inheritance, wealth stewardship, and life transitions with clarity.">
+  <meta property="og:title" content="MAEVE | Strategic Editorial Intelligence">
+  <meta property="og:description" content="Inheritance isn't a windfall. It's a weight. Let's carry it together.">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind CSS v4 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#001a0e',
+            'primary-light': '#132f21',
+            surface: '#faf9f6',
+            'surface-dim': '#efeeeb',
+            'surface-container': '#f0eeeb',
+            'on-surface': '#1a1c1a',
+            'on-primary': '#faf9f6',
+            gold: '#D4C5B0',
+            'gold-soft': 'rgba(212, 197, 176, 0.15)',
+          },
+          fontFamily: {
+            serif: ['"Noto Serif"', 'Georgia', 'serif'],
+            sans: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+
+  <!-- Material Symbols -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* Custom Stylized Logo 'A' */
+    .slanted-a {
+      position: relative;
+      display: inline-block;
+    }
+    .slanted-a::after {
+      content: '';
+      position: absolute;
+      top: 52%;
+      left: 17%;
+      width: 66%;
+      height: 0.07em;
+      background-color: currentColor;
+      transform: rotate(-12deg);
+      transform-origin: center;
+      border-radius: 1px;
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-surface text-on-surface antialiased">
+
+  <!-- ═══ TopNavBar ═══ -->
+  <header class="bg-[#faf9f6] dark:bg-[#001a0e] fixed top-0 left-0 w-full z-50">
+    <div class="flex justify-between items-center w-full px-6 md:px-12 py-5 md:py-6 max-w-[1440px] mx-auto">
+      <a href="index.html" class="flex-shrink-0 font-['Noto_Serif'] text-xl md:text-2xl font-bold text-[#001a0e] dark:text-[#faf9f6] tracking-tight uppercase"><span aria-hidden="true">M<span class="slanted-a">&Lambda;</span>EVE</span><span class="sr-only">MAEVE</span></a>
+      <div class="hidden md:flex items-center space-x-12 font-['Noto_Serif'] text-lg tracking-tight">
+        <a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="the-long-view.html">The Long View</a>
+        <a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="tools.html">Tools</a>
+        <a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="community.html">Community</a>
+        <a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="for-advisors.html">For Advisors</a>
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="relative items-center z-50 hidden md:inline-flex">
+          <button id="maeve-dropdown-toggle" class="font-['Plus_Jakarta_Sans'] text-sm font-medium text-[#001a0e] dark:text-[#faf9f6] hover:opacity-70 transition-opacity duration-300 cursor-pointer">Login</button>
+        </div>
+        <button class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2 rounded-sm font-label text-xs uppercase tracking-widest hover:opacity-80 transition-opacity duration-500 ease-in-out">
+          Start Here →
+        </button>
+        <button class="nav__toggle md:hidden flex flex-col gap-[5px] bg-transparent p-2 cursor-pointer border-none" aria-label="Toggle menu" aria-expanded="false">
+          <span class="block w-6 h-0.5 bg-primary rounded-sm transition-all duration-300"></span>
+          <span class="block w-6 h-0.5 bg-primary rounded-sm transition-all duration-300"></span>
+          <span class="block w-6 h-0.5 bg-primary rounded-sm transition-all duration-300"></span>
+        </button>
+      </div>
+    </div>
+    <div class="bg-[#efeeeb] dark:bg-[#132f21] h-[1px] w-full"></div>
+  </header>
+
+  <!-- Beautiful Maeve Dropdown Overlay -->
+  <div id="maeve-dropdown-overlay" class="fixed top-[74px] left-0 right-0 z-[45] bg-primary overflow-hidden opacity-0 pointer-events-none transition-all duration-300 ease-out border-b border-primary-light transform -translate-y-4">
+    <!-- Noise texture overlay -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E')"></div>
+    
+    <div class="max-w-[900px] mx-auto px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+      <!-- Member Card -->
+      <a href="http://localhost:5173/member" class="block bg-surface rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-serif text-base font-semibold">SM</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Member Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-primary mb-2 font-normal">Welcome back, Sarah</h3>
+        <p class="font-sans text-[14px] text-on-surface opacity-70 leading-relaxed">Continue your journey through Phase 2: Strategize. You're 62% through.</p>
+        <div class="mt-4 h-[3px] bg-surface-dim rounded-sm overflow-hidden">
+          <div class="h-full w-[62%] bg-primary rounded-sm transition-all duration-1000 ease-out"></div>
+        </div>
+      </a>
+
+      <!-- Advisor Card -->
+      <a href="http://localhost:5173/advisor" class="block bg-primary-light rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center text-on-primary font-serif text-base font-semibold border border-transparent transition-colors duration-300 group-hover:bg-surface group-hover:text-primary">EA</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Advisor Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-on-primary mb-2 font-normal">Elise Associates</h3>
+        <p class="font-sans text-[14px] text-on-primary opacity-70 leading-relaxed">3 actions required. 2 new documents uploaded by Sarah M.</p>
+        <div class="mt-4 flex gap-2">
+          <span class="px-2 py-1 bg-surface/20 text-on-primary text-[10px] font-bold tracking-wider uppercase rounded-sm border border-transparent">Action Required</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('maeve-dropdown-toggle');
+      const dropdown = document.getElementById('maeve-dropdown-overlay');
+      
+      if (toggle && dropdown) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = dropdown.classList.contains('opacity-100');
+          if (isOpen) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          } else {
+            dropdown.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+            dropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target) && e.target !== toggle) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          }
+        });
+      }
+    });
+  </script>
+
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu fixed inset-0 bg-surface z-[999] flex flex-col items-center justify-center gap-7 opacity-0 pointer-events-none transition-opacity duration-400" role="dialog" aria-label="Mobile navigation">
+    <a href="index.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Home</a>
+    <a href="the-long-view.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">The Long View</a>
+    <a href="tools.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Tools</a>
+    <a href="community.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Community</a>
+    <a href="for-advisors.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">For Advisors</a>
+    <a href="http://localhost:5173/member" class="mobile-menu__link mt-4 bg-primary text-on-primary px-8 py-3.5 rounded-md font-sans font-medium text-sm opacity-0 translate-y-4 transition-all duration-400">Start Here →</a>
+  </div>
+
+  <main class="pt-20 md:pt-24">
+
+    <!-- ═══ 1. HERO — Editorial Focus ═══ -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 pt-6 md:pt-10 pb-20 md:pb-40 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start reveal" id="hero">
+      <div class="lg:col-span-7 mb-8 lg:mb-0">
+        <span class="font-sans text-xs tracking-[0.2em] uppercase text-on-surface/50 mb-6 md:mb-8 block">Life Transition Intelligence</span>
+        <h1 class="serif-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] text-primary mb-8 md:mb-12">
+          Inheritance isn't a windfall. It's a weight. Let's carry it together.
+        </h1>
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6">
+          <a href="tools.html" class="bg-primary text-on-primary px-8 md:px-10 py-4 md:py-5 rounded-md font-medium transition-all duration-300 hover:opacity-90 text-center">
+            Explore the Framework
+          </a>
+          <a href="the-long-view.html" class="text-primary font-sans text-sm tracking-widest uppercase border-b border-primary pb-1 hover:opacity-70 transition-opacity self-center">
+            Learn from a Friend
+          </a>
+        </div>
+      </div>
+      <div class="lg:col-span-5 relative">
+        <div class="aspect-[4/5] overflow-hidden rounded-sm bg-surface-container">
+          <img alt="Editorial portrait" class="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 transition-all duration-700" src="assets/images/hero-portrait.png" />
+        </div>
+        <div class="absolute -bottom-6 md:-bottom-8 -left-4 md:-left-8 bg-white p-6 md:p-8 shadow-sm max-w-[280px]">
+          <p class="font-serif italic text-lg md:text-xl text-primary-light">"True stewardship begins where entitlement ends."</p>
+          <p class="mt-3 md:mt-4 text-[10px] font-bold uppercase tracking-widest text-on-surface/50">— Sarah J., Advisor</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══ 2. THE FRAMEWORK — Three-Phase Methodology ═══ -->
+    <section class="bg-surface-container py-20 md:py-40 border-y border-surface-dim/60 reveal" id="framework">
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12">
+        <div class="grid lg:grid-cols-12 gap-12 md:gap-16 items-start">
+
+          <!-- Sticky Sidebar -->
+          <div class="lg:col-span-4 lg:sticky lg:top-48">
+            <span class="font-sans text-xs tracking-[0.2em] uppercase text-on-surface/40 mb-4 md:mb-6 block">The Methodology</span>
+            <h2 class="serif-display text-4xl md:text-5xl text-primary mb-6 md:mb-8 leading-tight">Our Three-Phase Framework</h2>
+            <p class="font-sans text-on-surface/60 leading-relaxed text-base md:text-lg mb-8 md:mb-10">
+              Complexity requires a sequence. We guide you through a deliberate process designed to minimize risk and maximize clarity during high-stakes transitions.
+            </p>
+            <a class="font-sans text-sm tracking-widest uppercase border-b border-primary pb-1 hover:opacity-70 transition-opacity text-primary" href="tools.html">The Maeve Standard</a>
+          </div>
+
+          <!-- Phases -->
+          <div class="lg:col-span-8 space-y-16 md:space-y-24">
+
+            <!-- Phase 1 -->
+            <div class="group grid md:grid-cols-12 gap-6 md:gap-8 items-start reveal">
+              <div class="md:col-span-2">
+                <span class="serif-display text-6xl md:text-7xl text-primary/10 group-hover:text-primary transition-colors duration-700">01</span>
+              </div>
+              <div class="md:col-span-10">
+                <div class="flex items-center gap-4 mb-4 md:mb-6">
+                  <span class="material-symbols-outlined text-primary text-3xl">balance</span>
+                  <h3 class="serif-display text-2xl md:text-3xl text-primary">Phase 1: Stabilize</h3>
+                </div>
+                <p class="font-sans text-on-surface/60 text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-2xl">
+                  Immediate tactical support to stop the overwhelm. We audit your current position and secure your foundation through clinical precision.
+                </p>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 text-sm font-medium text-on-surface/60">
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Crisis Audit</li>
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Immediate Resource Mapping</li>
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Decision Triage</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="group grid md:grid-cols-12 gap-6 md:gap-8 items-start reveal">
+              <div class="md:col-span-2">
+                <span class="serif-display text-6xl md:text-7xl text-primary/10 group-hover:text-primary transition-colors duration-700">02</span>
+              </div>
+              <div class="md:col-span-10">
+                <div class="flex items-center gap-4 mb-4 md:mb-6">
+                  <span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+                  <h3 class="serif-display text-2xl md:text-3xl text-primary">Phase 2: Understand</h3>
+                </div>
+                <p class="font-sans text-on-surface/60 text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-2xl">
+                  Deep dive into the implications of your transition. Data-driven modeling meets personal values alignment to define your next chapter.
+                </p>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 text-sm font-medium text-on-surface/60">
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Scenario Modeling</li>
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Tax & Legal Translation</li>
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Objective Setting</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="group grid md:grid-cols-12 gap-6 md:gap-8 items-start reveal">
+              <div class="md:col-span-2">
+                <span class="serif-display text-6xl md:text-7xl text-primary/10 group-hover:text-primary transition-colors duration-700">03</span>
+              </div>
+              <div class="md:col-span-10">
+                <div class="flex items-center gap-4 mb-4 md:mb-6">
+                  <span class="material-symbols-outlined text-primary text-3xl">shield</span>
+                  <h3 class="serif-display text-2xl md:text-3xl text-primary">Phase 3: Protect</h3>
+                </div>
+                <p class="font-sans text-on-surface/60 text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-2xl">
+                  Execution of the long-term strategy. Ensuring your legacy and future state remain resilient against volatility and aligned with your intent.
+                </p>
+                <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 text-sm font-medium text-on-surface/60">
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Estate Integration</li>
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Asset Protection</li>
+                  <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-primary/30 rounded-full"></span> Continuous Monitoring</li>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ═══ 3. THE LONG VIEW — Editorial Articles ═══ -->
+    <section class="max-w-[1440px] mx-auto px-6 md:px-12 py-20 md:py-40 reveal" id="stories">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-4">
+        <div>
+          <span class="font-sans text-xs tracking-[0.2em] uppercase text-on-surface/40 mb-3 md:mb-4 block">From the Archive</span>
+          <h2 class="serif-display text-4xl md:text-5xl text-primary mb-3 md:mb-4">The Long View</h2>
+          <p class="font-sans text-on-surface/60 max-w-md">Our editorial lens on wealth, legacy, and the emotional intelligence required for stewardship.</p>
+        </div>
+        <a class="font-sans text-sm tracking-widest uppercase border-b border-primary pb-1 hover:opacity-70 transition-opacity text-primary whitespace-nowrap" href="the-long-view.html">View All Essays</a>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-16 reveal-stagger">
+
+        <!-- Article 1 -->
+        <article class="group">
+          <a href="the-long-view.html" class="block no-underline">
+            <div class="aspect-[3/4] overflow-hidden rounded-sm mb-6 md:mb-8 bg-surface-container">
+              <img alt="Group of women enjoying cocktails at an outdoor cafe" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-105 group-hover:scale-100" src="assets/images/european-cafe-friends.png" />
+            </div>
+            <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-on-surface/40 mb-3 md:mb-4 block">Legacy</span>
+            <h3 class="serif-display text-2xl md:text-3xl text-primary mb-3 md:mb-4 group-hover:text-primary/60 transition-colors">Beyond the Balance Sheet</h3>
+            <p class="font-sans text-sm text-on-surface/60 leading-relaxed">Redefining what it means to inherit more than just capital.</p>
+          </a>
+        </article>
+
+        <!-- Article 2 (offset) -->
+        <article class="group mt-0 md:mt-12">
+          <a href="the-long-view.html" class="block no-underline">
+            <div class="aspect-[3/4] overflow-hidden rounded-sm mb-6 md:mb-8 bg-surface-container">
+              <img alt="Sophisticated Asian American woman sitting" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-105 group-hover:scale-100" src="assets/images/stewardship-asian-woman.png" />
+            </div>
+            <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-on-surface/40 mb-3 md:mb-4 block">Stewardship</span>
+            <h3 class="serif-display text-2xl md:text-3xl text-primary mb-3 md:mb-4 group-hover:text-primary/60 transition-colors">The Architecture of Agency</h3>
+            <p class="font-sans text-sm text-on-surface/60 leading-relaxed">Developing the psychological infrastructure to lead your legacy.</p>
+          </a>
+        </article>
+
+        <!-- Article 3 -->
+        <article class="group">
+          <a href="the-long-view.html" class="block no-underline">
+            <div class="aspect-[3/4] overflow-hidden rounded-sm mb-6 md:mb-8 bg-surface-container">
+              <img alt="Serene moment of reflection" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out scale-105 group-hover:scale-100" src="assets/images/editorial-community.png" />
+            </div>
+            <span class="font-sans text-[10px] tracking-[0.2em] uppercase text-on-surface/40 mb-3 md:mb-4 block">Transitions</span>
+            <h3 class="serif-display text-2xl md:text-3xl text-primary mb-3 md:mb-4 group-hover:text-primary/60 transition-colors">Quiet Transitions</h3>
+            <p class="font-sans text-sm text-on-surface/60 leading-relaxed">Navigating the first twelve months of sudden financial responsibility.</p>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+
+    <!-- ═══ 4. FINAL CTA ═══ -->
+    <section class="py-20 md:py-40 bg-primary overflow-hidden relative reveal" id="cta">
+      <div class="absolute inset-0 opacity-10 pointer-events-none">
+        <div class="w-[500px] md:w-[800px] h-[500px] md:h-[800px] bg-primary-light rounded-full blur-[80px] md:blur-[120px] absolute -top-40 -left-40"></div>
+        <div class="w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-primary-light rounded-full blur-[60px] md:blur-[100px] absolute -bottom-40 -right-40"></div>
+      </div>
+      <div class="max-w-[1440px] mx-auto px-6 md:px-12 text-center relative z-10">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="serif-display text-4xl md:text-5xl lg:text-7xl text-on-primary leading-tight mb-8 md:mb-12">
+            Clarity is the ultimate luxury.
+          </h2>
+          <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-8">
+            <a href="tools.html" class="bg-surface text-primary px-10 md:px-12 py-4 md:py-5 rounded-md font-medium tracking-wide hover:bg-surface-dim transition-colors">
+              Begin Your Transition
+            </a>
+            <a class="text-on-primary font-sans text-sm tracking-widest uppercase border-b border-on-primary pb-1 hover:opacity-80 transition-opacity" href="community.html">Book a Consultation</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ═══ Footer ═══ -->
+  <footer class="bg-surface-dim py-16 md:py-20 mt-0 border-t border-surface-dim" role="contentinfo">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-12 px-6 md:px-12 max-w-[1440px] mx-auto">
+      <div class="col-span-2">
+        <span class="font-serif text-2xl font-semibold text-primary block mb-4 md:mb-6 uppercase tracking-tighter"><span aria-hidden="true">M<span class="slanted-a">&Lambda;</span>EVE</span><span class="sr-only">MAEVE</span></span>
+        <p class="font-sans text-sm tracking-wide text-on-surface/50 max-w-xs">
+          Editorial intelligence for the transitions that define a legacy. An editorial platform dedicated to the complex journey of wealth stewardship.
+        </p>
+      </div>
+      <div>
+        <h4 class="font-sans text-sm tracking-wide uppercase text-primary font-bold mb-4 md:mb-6">Explore</h4>
+        <ul class="space-y-3 md:space-y-4">
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="the-long-view.html">The Long View</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="podcast.html">Podcast</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="tools.html">Tools</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="community.html">Community</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="for-advisors.html">Advisors</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-sans text-sm tracking-wide uppercase text-primary font-bold mb-4 md:mb-6">About</h4>
+        <ul class="space-y-3 md:space-y-4">
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="#">Careers</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="#">Contact</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="#">Legal</a></li>
+          <li><a class="font-sans text-sm tracking-wide uppercase text-on-surface/50 hover:text-primary underline underline-offset-4 decoration-1 transition-colors" href="#">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="col-span-2 md:col-span-4 lg:col-span-5 pt-8 md:pt-12 border-t border-on-surface/10 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6">
+        <span class="font-sans text-xs tracking-widest uppercase text-on-surface/40">© 2026 Maeve Editorial. All rights reserved.</span>
+        <div class="flex gap-6 md:gap-8">
+          <a class="font-sans text-xs tracking-widest uppercase text-on-surface/40 hover:text-primary transition-colors" href="#">Legal</a>
+          <a class="font-sans text-xs tracking-widest uppercase text-on-surface/40 hover:text-primary transition-colors" href="#">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Maeve",
+    "description": "Strategic Editorial Intelligence — Navigate life's biggest transitions with clarity, not chaos.",
+    "url": "https://maeve.com"
+  }
+  </script>
+</body>
+</html>

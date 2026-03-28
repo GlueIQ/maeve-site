@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .maeve-logo {
+      font-family: 'Noto Serif', serif;
+      font-size: 4rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #001a0e;
+    }
+    .custom-a {
+      position: relative;
+      display: inline-block;
+    }
+    .custom-a::after {
+      content: '';
+      position: absolute;
+      top: 55%;
+      left: 15%;
+      width: 70%;
+      height: 0.08em;
+      background-color: currentColor;
+      transform: translateY(-50%) rotate(-15deg);
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-[#faf9f6]">
+  
+  <div>Original Text (A):</div>
+  <div class="maeve-logo mb-8">MAEVE</div>
+
+  <div>Custom Slanted A (Lambda):</div>
+  <div class="maeve-logo">M<span class="custom-a">&Lambda;</span>EVE</div>
+
+</body>
+</html>

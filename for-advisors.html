@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>For Advisors | MAEVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#dbdad7",
+              "surface-container-highest": "#e3e2e0",
+              "on-background": "#1a1c1a",
+              "surface-container-low": "#f4f3f0",
+              "surface-container": "#efeeeb",
+              "primary-fixed-dim": "#aeceb9",
+              "on-tertiary-container": "#9d8f7c",
+              "tertiary-fixed-dim": "#d3c4af",
+              "surface-tint": "#486554",
+              "surface": "#faf9f6",
+              "on-primary-fixed-variant": "#314d3d",
+              "on-tertiary-fixed": "#221a0d",
+              "outline-variant": "#c2c8c2",
+              "tertiary-fixed": "#f0e0ca",
+              "on-surface-variant": "#424843",
+              "surface-bright": "#faf9f6",
+              "outline": "#727973",
+              "on-primary-fixed": "#042013",
+              "surface-container-lowest": "#ffffff",
+              "primary": "#001a0e",
+              "background": "#faf9f6",
+              "secondary": "#5f5e5e",
+              "primary-fixed": "#caead5",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#f2f1ee",
+              "primary-container": "#132f21",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#31291b",
+              "on-secondary-fixed-variant": "#474746",
+              "tertiary": "#1c1508",
+              "secondary-fixed": "#e4e2e1",
+              "secondary-container": "#e4e2e1",
+              "on-error-container": "#93000a",
+              "inverse-primary": "#aeceb9",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-variant": "#e3e2e0",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e9e8e5",
+              "on-tertiary-fixed-variant": "#4f4535",
+              "on-primary-container": "#7a9885",
+              "on-primary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-surface": "#1a1c1a",
+              "on-error": "#ffffff",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-secondary-container": "#656464",
+              "inverse-surface": "#2f312f"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #faf9f6;
+            color: #1a1c1a;
+        }
+    </style>
+
+  <style>
+    /* Custom Stylized Logo 'A' */
+    .slanted-a {
+      position: relative;
+      display: inline-block;
+    }
+    .slanted-a::after {
+      content: '';
+      position: absolute;
+      top: 52%;
+      left: 17%;
+      width: 66%;
+      height: 0.07em;
+      background-color: currentColor;
+      transform: rotate(-12deg);
+      transform-origin: center;
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<nav class="bg-[#faf9f6] dark:bg-[#001a0e] fixed top-0 left-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-12 py-5 max-w-[1440px] mx-auto">
+<a href="index.html" class="flex-shrink-0 font-['Noto_Serif'] text-xl md:text-2xl font-bold text-[#001a0e] dark:text-[#faf9f6] tracking-tight uppercase"><span aria-hidden="true">M<span class="slanted-a">&Lambda;</span>EVE</span><span class="sr-only">MAEVE</span></a>
+<div class="hidden md:flex items-center space-x-12 font-['Noto_Serif'] text-lg tracking-tight">
+<a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="the-long-view.html">The Long View</a>
+<a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="tools.html">Tools</a>
+<a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="community.html">Community</a>
+<a class="text-[#001a0e] dark:text-[#faf9f6] border-b border-[#001a0e] dark:border-[#faf9f6] pb-1" href="for-advisors.html">For Advisors</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative items-center z-50 hidden md:inline-flex">
+          <button id="maeve-dropdown-toggle" class="font-['Plus_Jakarta_Sans'] text-sm font-medium text-[#001a0e] dark:text-[#faf9f6] hover:opacity-70 transition-opacity duration-300 cursor-pointer">
+            Login
+          </button>
+        </div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-sm font-label text-xs uppercase tracking-widest hover:opacity-80 transition-opacity duration-500 ease-in-out">
+                Start Here →
+            </button>
+</div>
+</div>
+<div class="bg-[#efeeeb] dark:bg-[#132f21] h-[1px] w-full"></div>
+</nav>
+
+  <!-- Beautiful Maeve Dropdown Overlay -->
+  <div id="maeve-dropdown-overlay" class="fixed top-[74px] left-0 right-0 z-[45] bg-primary overflow-hidden opacity-0 pointer-events-none transition-all duration-300 ease-out border-b border-primary-light transform -translate-y-4">
+    <!-- Noise texture overlay -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E')"></div>
+    
+    <div class="max-w-[900px] mx-auto px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+      <!-- Member Card -->
+      <a href="http://localhost:5173/member" class="block bg-surface rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-serif text-base font-semibold">SM</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Member Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-primary mb-2 font-normal">Welcome back, Sarah</h3>
+        <p class="font-sans text-[14px] text-on-surface opacity-70 leading-relaxed">Continue your journey through Phase 2: Strategize. You're 62% through.</p>
+        <div class="mt-4 h-[3px] bg-surface-dim rounded-sm overflow-hidden">
+          <div class="h-full w-[62%] bg-primary rounded-sm transition-all duration-1000 ease-out"></div>
+        </div>
+      </a>
+
+      <!-- Advisor Card -->
+      <a href="http://localhost:5173/advisor" class="block bg-primary-light rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center text-on-primary font-serif text-base font-semibold border border-transparent transition-colors duration-300 group-hover:bg-surface group-hover:text-primary">EA</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Advisor Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-on-primary mb-2 font-normal">Elise Associates</h3>
+        <p class="font-sans text-[14px] text-on-primary opacity-70 leading-relaxed">3 actions required. 2 new documents uploaded by Sarah M.</p>
+        <div class="mt-4 flex gap-2">
+          <span class="px-2 py-1 bg-surface/20 text-on-primary text-[10px] font-bold tracking-wider uppercase rounded-sm border border-transparent">Action Required</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('maeve-dropdown-toggle');
+      const dropdown = document.getElementById('maeve-dropdown-overlay');
+      
+      if (toggle && dropdown) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = dropdown.classList.contains('opacity-100');
+          if (isOpen) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          } else {
+            dropdown.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+            dropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target) && e.target !== toggle) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          }
+        });
+      }
+    });
+  </script>
+
+<main class="pt-20 md:pt-24">
+<!-- Hero Section -->
+<section class="px-12 pt-6 md:pt-10 pb-48 max-w-[1440px] mx-auto grid grid-cols-12 gap-8 items-end">
+<div class="col-span-12 lg:col-span-8">
+<span class="font-label text-xs uppercase tracking-[0.2em] text-outline mb-6 block">For Financial Advisors</span>
+<h1 class="font-headline text-6xl md:text-8xl leading-[0.95] tracking-tighter text-primary mb-12">
+                    Your clients' families <br/>are leaving. <span class="italic font-normal">Maeve helps them stay.</span>
+</h1>
+<p class="font-body text-2xl text-on-surface-variant max-w-xl leading-relaxed">
+                    80% of heirs leave the family advisor. What if you could change that? Maeve provides the intellectual infrastructure to bridge the generational gap.
+                </p>
+</div>
+<div class="col-span-12 lg:col-span-4 flex justify-end">
+<div class="relative w-full">
+<div class="w-full aspect-[3/4] bg-surface-container overflow-hidden group">
+<img alt="Advisor with multigenerational family" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="assets/images/advisors-multi-gen.png"/>
+</div>
+<div class="absolute -bottom-6 md:-bottom-8 -left-4 md:-left-8 bg-white p-6 md:p-8 shadow-sm max-w-[280px]">
+<p class="font-serif italic text-lg md:text-xl text-primary-light">"We don't just manage assets, we prepare the family to receive them."</p>
+<p class="mt-3 md:mt-4 text-[10px] font-bold uppercase tracking-widest text-on-surface/50">— James H., Wealth Director</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Bento Grid -->
+<section class="bg-surface-container-low py-32">
+<div class="px-12 max-w-[1440px] mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+<div class="bg-surface p-16 flex flex-col justify-between aspect-square border-r border-b border-surface-container">
+<span class="font-headline text-8xl text-primary/10">80%</span>
+<div>
+<h3 class="font-headline text-2xl mb-4">The Retention Cliff</h3>
+<p class="font-body text-on-surface-variant">Heirs who fire their parents' advisor within 18 months of inheriting assets.</p>
+</div>
+</div>
+<div class="bg-surface p-16 flex flex-col justify-between aspect-square border-r border-b border-surface-container">
+<span class="font-headline text-8xl text-primary/10">12%</span>
+<div>
+<h3 class="font-headline text-2xl mb-4">The Connection Gap</h3>
+<p class="font-body text-on-surface-variant">Adult children who have a meaningful relationship with their parents' lead advisor.</p>
+</div>
+</div>
+<div class="bg-surface p-16 flex flex-col justify-between aspect-square border-b border-surface-container">
+<span class="font-headline text-8xl text-primary/10">$68T</span>
+<div>
+<h3 class="font-headline text-2xl mb-4">The Great Transfer</h3>
+<p class="font-body text-on-surface-variant">Wealth expected to pass to the next generation over the next two decades.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Case Studies -->
+<section class="py-48 px-12 max-w-[1440px] mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-baseline mb-24">
+<h2 class="font-headline text-5xl text-primary">Intervention Points</h2>
+<p class="font-body text-lg text-outline max-w-sm mt-4 md:mt-0">Real scenarios where Maeve's editorial tools preserve the advisory relationship.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-16">
+<!-- Case 01 -->
+<div class="group">
+<div class="mb-8 overflow-hidden aspect-[4/5] bg-surface-container">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDYI4xQHCdG9z972383u1j2Q5wbtoUVn8RBN2AmbYXNN4miOZ0Yr_2eFCZUTkkef-ZgYQi5rigNF8Xar-KZ_uLLSHW5AjMD1a5esI5QUf1eldr6wvjuKvnB7iH8j7ffvEqR800JXm-qn8KkGMg0gGPVVxI5xHR_sTP42RwbfffMecmtfGmyJYF6O_LoPwIU4AertPVa6nOgigf1rpWuBU_uZp1ojxbOPq0uUo15X7EFagDtG4CmX36Dk3kMZT8XfI6yhyqzjgZp3s"/>
+</div>
+<span class="font-headline text-4xl text-primary/20 block mb-4">01</span>
+<h4 class="font-headline text-2xl mb-4">The Widow</h4>
+<p class="font-body text-on-surface-variant mb-6 leading-relaxed">Most widows leave their advisor within a year. Maeve helps you transition from technical manager to family steward.</p>
+<a class="font-label text-xs uppercase tracking-widest border-b border-primary pb-1 inline-block hover:opacity-60 transition-opacity" href="#">Read Protocol</a>
+</div>
+<!-- Case 02 -->
+<div class="group">
+<div class="mb-8 overflow-hidden aspect-[4/5] bg-surface-container">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXuXmy-rTH0REkECkU8nAPU6cQufI-6GCBPYkxdK_LwsuKGToQ0P_S5oRsOstURB9XgltFg6ViLjTHDgE8PIfdVhXQyRn5hsZ2w9xpVyTLrIFulPrNvC57jSYwr8WmBmk-zRJsI2B6tGNqyuZhse1GwpBMgyLs-AuQGTjaFUj7tgUlHn29MP_dXy-JP-uYV3eDkauR4OFCnrqwb7g6CapPlXcrj-Ai03oD_zlaAslETQHx1r3rCEU1bbjv51tA1F8JiVG6Qvpa2p0"/>
+</div>
+<span class="font-headline text-4xl text-primary/20 block mb-4">02</span>
+<h4 class="font-headline text-2xl mb-4">The Sandwich</h4>
+<p class="font-body text-on-surface-variant mb-6 leading-relaxed">Caring for aging parents and rising children. Provide the tools that solve their immediate logistical and emotional crises.</p>
+<a class="font-label text-xs uppercase tracking-widest border-b border-primary pb-1 inline-block hover:opacity-60 transition-opacity" href="#">Read Protocol</a>
+</div>
+<!-- Case 03 -->
+<div class="group">
+<div class="mb-8 overflow-hidden aspect-[4/5] bg-surface-container">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuiVtPdOosNfvVvPwz-m7Lyxeyco1zLqF-0ZuoWdgt6Z54oPDKy-Vi_n3nQoiakt1TRucMIcSYLYlzXp6JTTJYlD_siiDWN7H7PZ2Ld-15jOP9o54cpyLy7S5mYjmsRA7F7ibjj99fiju3w3RDGh0tWT8DMj7dTcNkpNfsoUV-rIVkrV8ZHZoNlfl2Ljsc7Kg_sHZa_dy7QhReFJyX9hGD2E456qNNBKcS-ABNQJ8SuO64Ou07P3_g-Bsr7EwhEbnqFSWh3IlPGzU"/>
+</div>
+<span class="font-headline text-4xl text-primary/20 block mb-4">03</span>
+<h4 class="font-headline text-2xl mb-4">The Family Meeting</h4>
+<p class="font-body text-on-surface-variant mb-6 leading-relaxed">Turn high-stress inheritance talks into legacy-building workshops using our proprietary conversation framework.</p>
+<a class="font-label text-xs uppercase tracking-widest border-b border-primary pb-1 inline-block hover:opacity-60 transition-opacity" href="#">Read Protocol</a>
+</div>
+</div>
+</section>
+<!-- Research Section -->
+<section class="bg-primary text-on-primary py-48 relative overflow-hidden">
+<!-- Background Texture/Light Leak -->
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-container rounded-full blur-[160px] translate-x-1/2 -translate-y-1/2"></div>
+<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary-container rounded-full blur-[120px] -translate-x-1/2 translate-y-1/2"></div>
+</div>
+<div class="px-12 max-w-[1440px] mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+<div>
+<span class="font-label text-xs uppercase tracking-[0.2em] text-on-primary-container mb-8 block">Research Credibility</span>
+<h2 class="font-headline text-5xl leading-tight mb-12">The Intellectual Foundation of Wealth Continuity</h2>
+<p class="font-body text-xl text-on-primary-container leading-relaxed mb-12">
+                        Our frameworks aren't just editorial—they are built on two decades of behavioral psychology and family systems research. We don't just help you talk to the next generation; we help you understand the silent anxieties that drive their financial exits.
+                    </p>
+<div class="flex items-center gap-8">
+<div class="flex flex-col">
+<span class="font-headline text-3xl">20+</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-primary-container">White Papers</span>
+</div>
+<div class="w-px h-12 bg-on-primary-container/20"></div>
+<div class="flex flex-col">
+<span class="font-headline text-3xl">150</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-primary-container">Family Offices</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest/5 backdrop-blur-sm p-12 border border-on-primary/10">
+<p class="font-headline text-2xl italic leading-relaxed mb-8">
+                        "Maeve has fundamentally shifted how we approach client longevity. It's no longer about the portfolio; it's about the narrative of the family."
+                    </p>
+<div class="flex items-center gap-4">
+<img src="assets/images/julian-vance.png" alt="Julian Vance" class="w-12 h-12 rounded-lg object-cover shadow-sm bg-primary-fixed-dim">
+<div>
+<p class="font-body font-bold text-sm">Julian Vance</p>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-primary-container">Director, Heritage Private Wealth</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-48 px-12 text-center max-w-[3xl] mx-auto">
+<h2 class="font-headline text-6xl text-primary mb-8 tracking-tighter">Become the Forever Advisor.</h2>
+<p class="font-body text-xl text-on-surface-variant max-w-xl mx-auto mb-16">
+                Request a private demo of the Maeve Advisor Toolkit and our 2024 Research Report on Generational Wealth.
+            </p>
+<div class="flex flex-col md:flex-row justify-center items-center gap-6">
+<button class="bg-primary text-on-primary px-10 py-5 rounded-sm font-medium hover:opacity-90 transition-all w-full md:w-auto">
+                    Request a Demo
+                </button>
+<button class="border-b border-primary px-4 py-2 text-primary font-medium hover:opacity-70 transition-all w-full md:w-auto">
+                    View Enterprise Pricing
+                </button>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#efeeeb] dark:bg-[#001a0e] border-t border-[#e3e2e0] dark:border-[#132f21] py-20 mt-32">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 px-12 max-w-[1440px] mx-auto">
+<div class="col-span-2 lg:col-span-1">
+<a href="index.html" class="font-['Noto_Serif'] text-2xl font-semibold text-[#001a0e] dark:text-[#faf9f6] mb-8 block">MAEVE</a>
+<p class="font-['Plus_Jakarta_Sans'] text-xs text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 leading-relaxed max-w-[200px]">
+                    Curating the future of legacy through intellectual stewardship.
+                </p>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] tracking-[0.2em] uppercase text-[#1a1c1a]/40 dark:text-[#faf9f6]/40 mb-2">Platform</span>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="the-long-view.html">The Long View</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="podcast.html">Podcast</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="tools.html">Tools</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="community.html">Community</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] tracking-[0.2em] uppercase text-[#1a1c1a]/40 dark:text-[#faf9f6]/40 mb-2">Company</span>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="#">About</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="#">Careers</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-4">
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] tracking-[0.2em] uppercase text-[#1a1c1a]/40 dark:text-[#faf9f6]/40 mb-2">Legal</span>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="#">Legal</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 transition-all" href="#">Privacy</a>
+</div>
+<div class="col-span-2 md:col-span-4 lg:col-span-5 pt-12 mt-12 border-t border-[#e3e2e0] dark:border-[#132f21] flex justify-between items-center">
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] text-[#1a1c1a]/40 dark:text-[#faf9f6]/40 uppercase tracking-widest">© 2024 Maeve Editorial. All rights reserved.</span>
+<div class="flex gap-6">
+<span class="material-symbols-outlined text-[#001a0e]/60 cursor-pointer hover:text-[#001a0e]">share</span>
+<span class="material-symbols-outlined text-[#001a0e]/60 cursor-pointer hover:text-[#001a0e]">mail</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

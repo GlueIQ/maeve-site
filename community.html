@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Community | MAEVE</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#dbdad7",
+              "surface-container-highest": "#e3e2e0",
+              "on-background": "#1a1c1a",
+              "surface-container-low": "#f4f3f0",
+              "surface-container": "#efeeeb",
+              "primary-fixed-dim": "#aeceb9",
+              "on-tertiary-container": "#9d8f7c",
+              "tertiary-fixed-dim": "#d3c4af",
+              "surface-tint": "#486554",
+              "surface": "#faf9f6",
+              "on-primary-fixed-variant": "#314d3d",
+              "on-tertiary-fixed": "#221a0d",
+              "outline-variant": "#c2c8c2",
+              "tertiary-fixed": "#f0e0ca",
+              "on-surface-variant": "#424843",
+              "surface-bright": "#faf9f6",
+              "outline": "#727973",
+              "on-primary-fixed": "#042013",
+              "surface-container-lowest": "#ffffff",
+              "primary": "#001a0e",
+              "background": "#faf9f6",
+              "secondary": "#5f5e5e",
+              "primary-fixed": "#caead5",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#f2f1ee",
+              "primary-container": "#132f21",
+              "error-container": "#ffdad6",
+              "tertiary-container": "#31291b",
+              "on-secondary-fixed-variant": "#474746",
+              "tertiary": "#1c1508",
+              "secondary-fixed": "#e4e2e1",
+              "secondary-container": "#e4e2e1",
+              "on-error-container": "#93000a",
+              "inverse-primary": "#aeceb9",
+              "secondary-fixed-dim": "#c8c6c5",
+              "surface-variant": "#e3e2e0",
+              "on-tertiary": "#ffffff",
+              "surface-container-high": "#e9e8e5",
+              "on-tertiary-fixed-variant": "#4f4535",
+              "on-primary-container": "#7a9885",
+              "on-primary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-surface": "#1a1c1a",
+              "on-error": "#ffffff",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-secondary-container": "#656464",
+              "inverse-surface": "#2f312f"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Plus Jakarta Sans"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .text-justify-custom { text-align: justify; text-justify: inter-word; }
+        .grayscale-hover { filter: grayscale(100%); transition: filter 0.5s ease-in-out; }
+        .grayscale-hover:hover { filter: grayscale(0%); }
+    </style>
+
+  <style>
+    /* Custom Stylized Logo 'A' */
+    .slanted-a {
+      position: relative;
+      display: inline-block;
+    }
+    .slanted-a::after {
+      content: '';
+      position: absolute;
+      top: 52%;
+      left: 17%;
+      width: 66%;
+      height: 0.07em;
+      background-color: currentColor;
+      transform: rotate(-12deg);
+      transform-origin: center;
+      border-radius: 1px;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<nav class="bg-[#faf9f6] dark:bg-[#001a0e] fixed top-0 left-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-12 py-5 max-w-[1440px] mx-auto">
+<a href="index.html" class="flex-shrink-0 font-['Noto_Serif'] text-xl md:text-2xl font-bold text-[#001a0e] dark:text-[#faf9f6] tracking-tight uppercase"><span aria-hidden="true">M<span class="slanted-a">&Lambda;</span>EVE</span><span class="sr-only">MAEVE</span></a>
+<div class="hidden md:flex items-center space-x-12 font-['Noto_Serif'] text-lg tracking-tight">
+<a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="the-long-view.html">The Long View</a>
+<a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="tools.html">Tools</a>
+<a class="text-[#001a0e] dark:text-[#faf9f6] border-b border-[#001a0e] dark:border-[#faf9f6] pb-1" href="community.html">Community</a>
+<a class="text-[#1a1c1a]/70 dark:text-[#faf9f6]/70 font-medium hover:text-[#001a0e] dark:hover:text-[#faf9f6] transition-colors duration-300" href="for-advisors.html">For Advisors</a>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative items-center z-50 hidden md:inline-flex">
+          <button id="maeve-dropdown-toggle" class="font-['Plus_Jakarta_Sans'] text-sm font-medium text-[#001a0e] dark:text-[#faf9f6] hover:opacity-70 transition-opacity duration-300 cursor-pointer">
+            Login
+          </button>
+        </div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-sm font-label text-xs uppercase tracking-widest hover:opacity-80 transition-opacity duration-500 ease-in-out">
+                Start Here →
+            </button>
+</div>
+</div>
+<div class="bg-[#efeeeb] dark:bg-[#132f21] h-[1px] w-full"></div>
+</nav>
+
+  <!-- Beautiful Maeve Dropdown Overlay -->
+  <div id="maeve-dropdown-overlay" class="fixed top-[74px] left-0 right-0 z-[45] bg-primary overflow-hidden opacity-0 pointer-events-none transition-all duration-300 ease-out border-b border-primary-light transform -translate-y-4">
+    <!-- Noise texture overlay -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=\'0 0 256 256\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\'/%3E%3C/svg%3E')"></div>
+    
+    <div class="max-w-[900px] mx-auto px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+      <!-- Member Card -->
+      <a href="http://localhost:5173/member" class="block bg-surface rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-serif text-base font-semibold">SM</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Member Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-primary mb-2 font-normal">Welcome back, Sarah</h3>
+        <p class="font-sans text-[14px] text-on-surface opacity-70 leading-relaxed">Continue your journey through Phase 2: Strategize. You're 62% through.</p>
+        <div class="mt-4 h-[3px] bg-surface-dim rounded-sm overflow-hidden">
+          <div class="h-full w-[62%] bg-primary rounded-sm transition-all duration-1000 ease-out"></div>
+        </div>
+      </a>
+
+      <!-- Advisor Card -->
+      <a href="http://localhost:5173/advisor" class="block bg-primary-light rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center text-on-primary font-serif text-base font-semibold border border-transparent transition-colors duration-300 group-hover:bg-surface group-hover:text-primary">EA</div>
+          <div>
+            <div class="font-sans font-semibold text-[11px] text-primary/70 tracking-[2.5px] uppercase">Advisor Portal</div>
+          </div>
+        </div>
+        <h3 class="font-serif text-[22px] text-on-primary mb-2 font-normal">Elise Associates</h3>
+        <p class="font-sans text-[14px] text-on-primary opacity-70 leading-relaxed">3 actions required. 2 new documents uploaded by Sarah M.</p>
+        <div class="mt-4 flex gap-2">
+          <span class="px-2 py-1 bg-surface/20 text-on-primary text-[10px] font-bold tracking-wider uppercase rounded-sm border border-transparent">Action Required</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('maeve-dropdown-toggle');
+      const dropdown = document.getElementById('maeve-dropdown-overlay');
+      
+      if (toggle && dropdown) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = dropdown.classList.contains('opacity-100');
+          if (isOpen) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          } else {
+            dropdown.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-4');
+            dropdown.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!dropdown.contains(e.target) && e.target !== toggle) {
+            dropdown.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+            dropdown.classList.add('opacity-0', 'pointer-events-none', '-translate-y-4');
+          }
+        });
+      }
+    });
+  </script>
+
+<main class="pt-20 md:pt-24">
+<!-- Hero Section -->
+<section class="max-w-[1440px] mx-auto px-12 pt-6 md:pt-10 pb-24 md:pb-40">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+<div class="lg:col-span-7">
+<span class="font-label text-xs uppercase tracking-[0.3em] text-outline mb-6 block">Community</span>
+<h1 class="font-headline text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tighter text-primary mb-8">
+                        Navigate this <br/>with women <br/><span class="italic text-outline">who get it.</span>
+</h1>
+<p class="text-xl md:text-2xl text-on-surface-variant max-w-xl leading-relaxed font-light">
+                        A private community for women moving through life's most complex transitions. From career pivots to personal evolution, find the steward for your next chapter.
+                    </p>
+<div class="mt-12 flex flex-wrap gap-6">
+<button class="bg-primary text-on-primary px-10 py-4 rounded-sm font-label text-sm uppercase tracking-widest hover:opacity-90 transition-all">
+                            Request Invitation
+                        </button>
+<button class="border-b border-primary text-primary px-2 py-4 font-label text-sm uppercase tracking-widest hover:text-outline hover:border-outline transition-all">
+                            View Philosophy
+                        </button>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="aspect-[3/4] bg-surface-container-low overflow-hidden rounded-sm grayscale-hover">
+<img alt="Professional woman in thought" class="w-full h-full object-cover mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDAuil_k7QEiwkqjkvX_CUFfdgBQR4u-g71_rmdpCZo3BCzLRwxc_7HOvOFndY-seqE9hr7FaMVTVCsH7YYYFHr8WhK_jFy4PMYocPhswXcFtFgi4PnRetupT4vZAIo4-hKUwZcVbvFX69BP-qFkzuLOc4mSA07AqhQA8iH8KCknsFZkSXLI0FgMh0ceM8PDoqgy2zDGihBh5AkwBbwR74IEC_WNSODv_KJJ2BgIqgNsCvCFS9jkf-xWW02rgJyWMz-zjoEwHdBs0"/>
+</div>
+<div class="absolute -bottom-8 -left-8 bg-surface-container-lowest p-8 max-w-[280px] shadow-sm hidden md:block">
+<span class="font-headline text-4xl text-primary-container/20 block mb-2">01</span>
+<p class="font-body text-sm italic leading-relaxed text-on-surface">
+                            "The transition wasn't easier because of the tools; it was easier because of the voices standing beside me."
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Value Propositions (Bento Style) -->
+<section class="bg-surface-container-low py-32">
+<div class="max-w-[1440px] mx-auto px-12">
+<div class="flex justify-between items-end mb-20">
+<div class="max-w-2xl">
+<h2 class="font-headline text-4xl md:text-5xl text-primary mb-6">Designed for Depth.</h2>
+<p class="text-lg text-on-surface-variant">We've built an infrastructure that favors slow thinking and high-trust connections over the noise of social media.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[700px]">
+<!-- Peer Support -->
+<div class="md:col-span-2 md:row-span-1 bg-surface-container-lowest p-10 flex flex-col justify-between group cursor-default">
+<span class="material-symbols-outlined text-4xl text-primary-container">groups</span>
+<div>
+<h3 class="font-headline text-2xl mb-3">Peer Support</h3>
+<p class="text-on-surface-variant leading-relaxed">Curated circles of 6-8 women in similar life stages, facilitated to ensure psychological safety and radical honesty.</p>
+</div>
+</div>
+<!-- Expert-Led -->
+<div class="md:col-span-2 md:row-span-2 bg-primary text-on-primary p-12 flex flex-col justify-end relative overflow-hidden">
+<div class="absolute top-0 right-0 p-12 opacity-10">
+<span class="material-symbols-outlined text-[12rem]">verified_user</span>
+</div>
+<h3 class="font-headline text-3xl mb-4">Expert-Led Stewards</h3>
+<p class="text-on-primary-container text-lg leading-relaxed mb-8 max-w-sm">Direct access to psychologists, career strategists, and financial advisors who specialize in women's mid-life and late-career transitions.</p>
+<a class="font-label text-xs uppercase tracking-widest border-b border-on-primary-container w-max pb-1" href="#">Meet the Faculty</a>
+</div>
+<!-- Webinars -->
+<div class="md:col-span-1 md:row-span-1 bg-surface-container-high p-10 flex flex-col justify-between">
+<span class="material-symbols-outlined text-4xl text-primary-container">podcasts</span>
+<div>
+<h3 class="font-headline text-xl mb-2">Webinars</h3>
+<p class="text-sm text-on-surface-variant">Monthly masterclasses on the intellectual and logistical sides of change.</p>
+</div>
+</div>
+<!-- Resource Library -->
+<div class="md:col-span-1 md:row-span-1 bg-surface-container-lowest p-10 flex flex-col justify-between border-l-4 border-primary">
+<span class="material-symbols-outlined text-4xl text-primary-container">menu_book</span>
+<div>
+<h3 class="font-headline text-xl mb-2">The Library</h3>
+<p class="text-sm text-on-surface-variant">Frameworks, legal checklists, and emotional toolkits for every step.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Membership Tiers -->
+<section class="py-32 bg-surface">
+<div class="max-w-[1440px] mx-auto px-12">
+<div class="text-center mb-24">
+<span class="font-label text-xs uppercase tracking-[0.3em] text-outline mb-6 block">Investment</span>
+<h2 class="font-headline text-5xl text-primary">Choose your pace.</h2>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+<!-- Free Tier -->
+<div class="p-12 border border-outline-variant flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start mb-12">
+<div>
+<h3 class="font-headline text-2xl mb-1">MAEVE Basic</h3>
+<p class="text-sm font-label uppercase tracking-widest text-outline">Open Access</p>
+</div>
+<span class="font-headline text-4xl">$0</span>
+</div>
+<ul class="space-y-6 mb-16">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check</span>
+<span class="text-on-surface-variant">Access to the Weekly Editorial "The Long View"</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check</span>
+<span class="text-on-surface-variant">Public Community Forums</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-sm mt-1">check</span>
+<span class="text-on-surface-variant">Basic Resource Checklists</span>
+</li>
+</ul>
+</div>
+<button class="w-full border border-primary text-primary py-4 font-label text-xs uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-all">
+                            Join for Free
+                        </button>
+</div>
+<!-- Premium Tier -->
+<div class="p-12 bg-primary text-on-primary flex flex-col justify-between relative">
+<div class="absolute top-0 right-12 transform -translate-y-1/2 bg-on-tertiary-container text-primary px-4 py-1 font-label text-[10px] uppercase tracking-widest">
+                            Recommended
+                        </div>
+<div>
+<div class="flex justify-between items-start mb-12">
+<div>
+<h3 class="font-headline text-2xl mb-1">MAEVE Premium</h3>
+<p class="text-sm font-label uppercase tracking-widest text-on-primary-container">Invitation Only</p>
+</div>
+<div class="text-right">
+<span class="font-headline text-4xl">$450</span>
+<p class="text-[10px] uppercase tracking-tighter opacity-60">Per Year</p>
+</div>
+</div>
+<ul class="space-y-6 mb-16">
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container text-sm mt-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-primary">Curated Peer Support Circles (max 8 women)</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container text-sm mt-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-primary">Quarterly 1-on-1 Strategy sessions</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container text-sm mt-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-primary">Full Archive of Expert Masterclasses</span>
+</li>
+<li class="flex items-start gap-4">
+<span class="material-symbols-outlined text-on-primary-container text-sm mt-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-on-primary">Private Discord &amp; VIP Event Access</span>
+</li>
+</ul>
+</div>
+<button class="w-full bg-surface text-primary py-4 font-label text-xs uppercase tracking-widest hover:opacity-90 transition-all">
+                            Request Membership
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials -->
+<section class="py-32 bg-surface-container-low overflow-hidden">
+<div class="max-w-[1440px] mx-auto px-12">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<div class="lg:col-span-4">
+<h2 class="font-headline text-4xl text-primary leading-tight mb-8">Voices from the Interior.</h2>
+<p class="text-on-surface-variant mb-12">Honest reflections from women who have navigated their transition with Maeve.</p>
+<div class="flex gap-4">
+<button class="w-12 h-12 flex items-center justify-center border border-outline-variant rounded-full text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center border border-outline-variant rounded-full text-primary hover:bg-primary hover:text-on-primary transition-all">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<div class="lg:col-span-8">
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-12 flex-1 shadow-sm">
+<div class="flex gap-1 text-primary mb-8">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-headline text-xl leading-relaxed text-primary mb-12">"I found a group of women who finally understood that my 'mid-life crisis' was actually a mid-life awakening. The support circle changed everything."</p>
+<div>
+<p class="font-label text-xs uppercase tracking-widest text-primary">Helena Vance</p>
+<p class="text-[10px] uppercase tracking-tighter text-outline">Executive Architect</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-12 flex-1 shadow-sm">
+<div class="flex gap-1 text-primary mb-8">
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<p class="font-headline text-xl leading-relaxed text-primary mb-12">"The financial transition tools were practical, but the emotional intelligence of this community is what kept me grounded."</p>
+<div>
+<p class="font-label text-xs uppercase tracking-widest text-primary">Sarah Chen</p>
+<p class="text-[10px] uppercase tracking-tighter text-outline">Former Partner, Tech Strategy</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA -->
+<section class="py-40 bg-primary overflow-hidden relative">
+<div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary-container/40 via-primary to-primary"></div>
+<div class="relative z-10 max-w-[1440px] mx-auto px-12 text-center">
+<h2 class="font-headline text-4xl md:text-6xl text-on-primary mb-12 leading-tight">Your next chapter deserves <br/>an audience.</h2>
+<div class="flex justify-center gap-8">
+<button class="bg-surface text-primary px-12 py-5 font-label text-sm uppercase tracking-widest hover:opacity-90 transition-all">
+                        Apply to Join
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#efeeeb] dark:bg-[#001a0e] border-t border-[#e3e2e0] dark:border-[#132f21] py-20 mt-32">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 px-12 max-w-[1440px] mx-auto">
+<div class="col-span-2 lg:col-span-1">
+<a href="index.html" class="font-['Noto_Serif'] text-2xl font-semibold text-[#001a0e] dark:text-[#faf9f6] mb-8 block">MAEVE</a>
+<p class="text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 font-['Plus_Jakarta_Sans'] text-xs leading-relaxed uppercase tracking-wider">
+                    A destination for the intellectual and emotional steward.
+                </p>
+</div>
+<div class="flex flex-col space-y-4">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-4">Content</span>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="the-long-view.html">The Long View</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="podcast.html">Podcast</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="tools.html">Tools</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="community.html">Community</a>
+</div>
+<div class="flex flex-col space-y-4">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-4">Company</span>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="#">About</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="#">Careers</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="#">Contact</a>
+</div>
+<div class="flex flex-col space-y-4">
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-outline mb-4">Legal</span>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="#">Legal</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-wide uppercase text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 hover:text-[#001a0e] dark:hover:text-[#faf9f6] underline underline-offset-4 decoration-1 duration-300" href="#">Privacy</a>
+</div>
+<div class="col-span-2 lg:col-span-1 flex flex-col justify-end">
+<p class="text-[#1a1c1a]/60 dark:text-[#faf9f6]/60 font-['Plus_Jakarta_Sans'] text-[10px] uppercase tracking-widest">
+                    © 2024 Maeve Editorial. All rights reserved.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>
