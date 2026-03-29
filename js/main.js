@@ -139,6 +139,59 @@ function initMain() {
     });
   });
 
+  // ── Hero Carousel ──
+  const heroCarousel = document.getElementById('hero-carousel');
+  const heroTrack = document.getElementById('hero-carousel-track');
+  const heroDotsContainer = document.getElementById('hero-carousel-dots');
+
+  if (heroCarousel && heroTrack && heroDotsContainer) {
+    const slides = Array.from(heroTrack.children);
+    const slideCount = slides.length;
+    let currentIndex = 0;
+    
+    // Create dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = `w-2 h-2 rounded-full transition-all cursor-pointer ${i === 0 ? 'bg-primary scale-125' : 'bg-primary/30 hover:bg-primary/60'}`;
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => goToSlide(i));
+      heroDotsContainer.appendChild(dot);
+    });
+    
+    const dots = Array.from(heroDotsContainer.children);
+
+    function updateCarousel() {
+      // Move track
+      heroTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+      
+      // Update dots
+      dots.forEach((dot, i) => {
+        if (i === currentIndex) {
+          dot.className = 'w-2 h-2 rounded-full transition-all cursor-pointer bg-primary scale-125';
+        } else {
+          dot.className = 'w-2 h-2 rounded-full transition-all cursor-pointer bg-primary/30 hover:bg-primary/60';
+        }
+      });
+    }
+
+    function goToSlide(index) {
+      if (index < 0) index = slideCount - 1;
+      if (index >= slideCount) index = 0;
+      currentIndex = index;
+      updateCarousel();
+    }
+    
+    // Optional: Auto-advance
+    let autoPlayInterval = setInterval(() => goToSlide(currentIndex + 1), 6000);
+    
+    // Pause auto-play on hover
+    heroCarousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+    heroCarousel.addEventListener('mouseleave', () => {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(() => goToSlide(currentIndex + 1), 6000);
+    });
+  }
+
   // ── Smooth Page Transitions ──
   document.querySelectorAll('a[href$=".html"]').forEach(link => {
     link.addEventListener('click', (e) => {
