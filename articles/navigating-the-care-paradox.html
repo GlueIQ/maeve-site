@@ -203,42 +203,61 @@
   <!-- Reading Progress Bar -->
   <div class="reading-progress" id="readingProgress"></div>
 
+  <!-- Slanted-A Logo Style -->
+  <style>
+    .slanted-a {
+      position: relative;
+      display: inline-block;
+    }
+    .slanted-a::after {
+      content: '';
+      position: absolute;
+      top: 52%;
+      left: 17%;
+      width: 66%;
+      height: 0.07em;
+      background-color: currentColor;
+      transform: rotate(-12deg);
+      transform-origin: center;
+      border-radius: 1px;
+    }
+  </style>
+
   <!-- ═══════════════════════════════════════════════ -->
-  <!--  NAVIGATION (shared)                           -->
+  <!--  NAVIGATION (shared — matches homepage)        -->
   <!-- ═══════════════════════════════════════════════ -->
-  <nav class="nav">
-    <div class="nav__inner">
-      <a href="/index.html" class="nav__logo" aria-label="MAEVE Home">
-        <div class="logo-mark">
-          <svg viewBox="0 0 40 44" width="22" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" class="logo-mark__icon">
-            <path d="M20 2L3 42h6l11-26 11 26h6L20 2z" fill="currentColor"/>
-            <line x1="10" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="2.2"/>
-          </svg>
-        </div>
-        <span class="nav__wordmark">MAEVE</span>
-      </a>
-      <div class="nav__links">
-        <a href="/index.html" class="nav__link">Home</a>
-        <a href="/the-long-view.html" class="nav__link nav__link--active">The Long View</a>
-        <a href="/podcast.html" class="nav__link">Podcast</a>
-        <a href="/about.html" class="nav__link">About</a>
+  <header class="bg-[#faf9f6] fixed top-0 left-0 w-full z-50">
+    <div class="flex justify-between items-center w-full px-6 md:px-12 py-5 md:py-6 max-w-[1440px] mx-auto">
+      <a href="/index.html" class="flex-shrink-0 font-['Noto_Serif'] text-xl md:text-2xl font-bold text-[#001a0e] tracking-tight uppercase"><span aria-hidden="true">M<span class="slanted-a">&Lambda;</span>EVE</span><span class="sr-only">MAEVE</span></a>
+      <div class="hidden md:flex items-center space-x-12 font-['Noto_Serif'] text-lg tracking-tight">
+        <a class="text-[#1a1c1a]/70 font-medium hover:text-[#001a0e] transition-colors duration-300" href="/the-long-view.html" style="text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px;">The Long View</a>
+        <a class="text-[#1a1c1a]/70 font-medium hover:text-[#001a0e] transition-colors duration-300" href="/tools.html">Tools</a>
+        <a class="text-[#1a1c1a]/70 font-medium hover:text-[#001a0e] transition-colors duration-300" href="/community.html">Community</a>
+        <a class="text-[#1a1c1a]/70 font-medium hover:text-[#001a0e] transition-colors duration-300" href="/for-advisors.html">For Advisors</a>
+        <a class="text-[#4a6b5d] italic font-medium hover:text-[#001a0e] transition-colors duration-300" href="/podcast.html">Podcast</a>
       </div>
-      <a href="/join.html" class="nav__cta">Start Here</a>
-      <button class="nav__toggle" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="flex items-center gap-6">
+        <button class="hidden md:inline-flex bg-[#001a0e] text-[#faf9f6] px-6 py-2 rounded-sm font-['Plus_Jakarta_Sans'] text-xs uppercase tracking-widest hover:opacity-80 transition-opacity duration-500 ease-in-out">
+          Start Here →
+        </button>
+        <button class="nav__toggle md:hidden flex flex-col gap-[5px] bg-transparent p-2 cursor-pointer border-none" aria-label="Toggle menu" aria-expanded="false">
+          <span class="block w-6 h-0.5 bg-[#001a0e] rounded-sm transition-all duration-300"></span>
+          <span class="block w-6 h-0.5 bg-[#001a0e] rounded-sm transition-all duration-300"></span>
+          <span class="block w-6 h-0.5 bg-[#001a0e] rounded-sm transition-all duration-300"></span>
+        </button>
+      </div>
     </div>
-  </nav>
+    <div class="bg-[#efeeeb] h-[1px] w-full"></div>
+  </header>
 
   <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <div class="mobile-menu__inner">
-      <a href="/index.html" class="mobile-menu__link">Home</a>
-      <a href="/the-long-view.html" class="mobile-menu__link">The Long View</a>
-      <a href="/podcast.html" class="mobile-menu__link">Podcast</a>
-      <a href="/about.html" class="mobile-menu__link">About</a>
-      <a href="/join.html" class="mobile-menu__link mobile-menu__cta">Start Here</a>
-    </div>
+  <div class="mobile-menu fixed inset-0 bg-[#faf9f6] z-[999] flex flex-col items-center justify-center gap-7 opacity-0 pointer-events-none transition-opacity duration-400" role="dialog" aria-label="Mobile navigation">
+    <a href="/index.html" class="mobile-menu__link font-serif font-light text-3xl text-[#001a0e] no-underline opacity-0 translate-y-4 transition-all duration-400">Home</a>
+    <a href="/the-long-view.html" class="mobile-menu__link font-serif font-light text-3xl text-[#001a0e] no-underline opacity-0 translate-y-4 transition-all duration-400">The Long View</a>
+    <a href="/tools.html" class="mobile-menu__link font-serif font-light text-3xl text-[#001a0e] no-underline opacity-0 translate-y-4 transition-all duration-400">Tools</a>
+    <a href="/community.html" class="mobile-menu__link font-serif font-light text-3xl text-[#001a0e] no-underline opacity-0 translate-y-4 transition-all duration-400">Community</a>
+    <a href="/for-advisors.html" class="mobile-menu__link font-serif font-light text-3xl text-[#001a0e] no-underline opacity-0 translate-y-4 transition-all duration-400">For Advisors</a>
+    <a href="/podcast.html" class="mobile-menu__link font-serif italic font-light text-3xl text-[#4a6b5d] hover:text-[#001a0e] no-underline opacity-0 translate-y-4 transition-all duration-400">Podcast</a>
   </div>
 
   <!-- ═══════════════════════════════════════════════ -->
