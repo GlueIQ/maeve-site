@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-const STATIC_SITE_URL = 'http://localhost:8080';
+const STATIC_SITE_URL = '';
 
 const NAV_LINKS = [
   { label: 'The Long View', href: '/the-long-view.html', external: true },
@@ -44,7 +44,7 @@ export default function GlobalNav({ onOpenDropdown, dropdownOpen }) {
           padding: '20px 48px',  /* py-5 (20px) px-12 (48px) — matches editorial */
         }}>
           {/* Logo — editorial: font-['Noto_Serif'] text-xl md:text-2xl font-bold tracking-tight uppercase */}
-          <a href={`${STATIC_SITE_URL}/index.html`} style={{
+          <a href={`${STATIC_SITE_URL}/`} style={{
             flexShrink: 0,
             fontFamily: 'var(--font-serif)',
             fontSize: '24px',
@@ -133,7 +133,7 @@ export default function GlobalNav({ onOpenDropdown, dropdownOpen }) {
 
             {/* Start Here — editorial: bg-primary text-on-primary px-6 py-2 rounded-sm font-label text-xs uppercase tracking-widest */}
             <a
-              href="/site/tools.html"
+              href="/tools.html"
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontWeight: 600,

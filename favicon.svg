@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <mask id="m">
+      <rect width="512" height="512" fill="white"/>
+      <!-- Serif M knocked out -->
+      <path d="
+        M136,380 L136,132 L160,132 L256,300 L352,132 L376,132 L376,380 L344,380 L344,196 L256,348 L168,196 L168,380 Z
+      " fill="black"/>
+    </mask>
+  </defs>
+  <rect width="512" height="512" rx="80" fill="#001a0e" mask="url(#m)"/>
+</svg>

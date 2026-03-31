@@ -33,7 +33,7 @@ const beautifulDropdownHtml = `
     
     <div class="max-w-[900px] mx-auto px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
       <!-- Member Card -->
-      <a href="http://localhost:5173/member" class="block bg-[#fdfbf7] rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+      <a href="/member" class="block bg-[#fdfbf7] rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 rounded-full bg-[#001a0e] flex items-center justify-center text-[#D4C5B0] font-serif text-base font-semibold">SM</div>
           <div>
@@ -48,7 +48,7 @@ const beautifulDropdownHtml = `
       </a>
 
       <!-- Advisor Card -->
-      <a href="http://localhost:5173/advisor" class="block bg-[#132f21] rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-[#D4C5B0]/30 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
+      <a href="/advisor" class="block bg-[#132f21] rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-[#D4C5B0]/30 hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 rounded-full bg-[#D4C5B0]/20 flex items-center justify-center text-[#D4C5B0] font-serif text-base font-semibold border border-[#D4C5B0]/30 transition-colors duration-300 group-hover:bg-[#D4C5B0] group-hover:text-[#001a0e]">EA</div>
           <div>
@@ -111,13 +111,13 @@ htmlFiles.forEach(file => {
     console.log('Restored beautiful dropdown in ' + file);
   } else {
     // maybe for-advisors has a different href for Start Here, but we replaced the Button!
-    const advisorRegex = /<div class="relative group hidden md:inline-flex items-center z-50">[\s\S]*?<\/div>\s*<\/div>\s*<a href="http:\/\/localhost:5173\/[^"]+" class="hidden md:inline-flex bg-primary text-on-primary[^>]+>\s*Start Here\s*→\s*<\/a>\s*<\/div>\s*<\/div>\s*<div class="bg-\[#efeeeb\][^>]+><\/div>\s*<\/header>/;
+    const advisorRegex = /<div class="relative group hidden md:inline-flex items-center z-50">[\s\S]*?<\/div>\s*<\/div>\s*<a href="https:\/\/portal-glue-iq\.vercel\.app\/[^"]+" class="hidden md:inline-flex bg-primary text-on-primary[^>]+>\s*Start Here\s*→\s*<\/a>\s*<\/div>\s*<\/div>\s*<div class="bg-\[#efeeeb\][^>]+><\/div>\s*<\/header>/;
     
     if (advisorRegex.test(content)) {
       // Modify beautifulDropdownHtml for the anchor version of Start Here
       let customizedNav = beautifulDropdownHtml.replace(
         /<button class="hidden md:inline-flex bg-primary text-on-primary[^>]+>\s*Start Here\s*→\s*<\/button>/,
-        '<a href="http://localhost:5173/advisor" class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2 rounded-sm font-label text-xs uppercase tracking-widest hover:opacity-80 transition-opacity duration-500 ease-in-out">Start Here →</a>'
+        '<a href="/advisor" class="hidden md:inline-flex bg-primary text-on-primary px-6 py-2 rounded-sm font-label text-xs uppercase tracking-widest hover:opacity-80 transition-opacity duration-500 ease-in-out">Start Here →</a>'
       );
       content = content.replace(advisorRegex, customizedNav.trim());
       fs.writeFileSync(filePath, content);

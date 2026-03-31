@@ -86,7 +86,7 @@
     
     <div class="max-w-[900px] mx-auto px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
       <!-- Member Card -->
-      <a href="http://localhost:5173/member" class="block bg-surface rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
+      <a href="/member" class="block bg-surface rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.12)]">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-on-primary font-serif text-base font-semibold">SM</div>
           <div>
@@ -101,7 +101,7 @@
       </a>
 
       <!-- Advisor Card -->
-      <a href="http://localhost:5173/advisor" class="block bg-primary-light rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
+      <a href="/advisor" class="block bg-primary-light rounded-[24px] p-8 no-underline transition-all duration-300 ease-out border border-transparent hover:-translate-y-1 hover:shadow-[0_8px_32px_rgba(72,101,84,0.15)] group">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 rounded-full bg-surface/10 flex items-center justify-center text-on-primary font-serif text-base font-semibold border border-transparent transition-colors duration-300 group-hover:bg-surface group-hover:text-primary">EA</div>
           <div>
@@ -154,7 +154,7 @@
     <a href="community.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">Community</a>
     <a href="for-advisors.html" class="mobile-menu__link font-serif font-light text-3xl text-primary no-underline opacity-0 translate-y-4 transition-all duration-400">For Advisors</a>
     <a href="podcast.html" class="mobile-menu__link font-serif italic font-light text-3xl text-[#4a6b5d] dark:text-[#8ba79a] hover:text-[#001a0e] dark:hover:text-[#faf9f6] no-underline opacity-0 translate-y-4 transition-all duration-400">Podcast</a>
-    <a href="http://localhost:5173/member" class="mobile-menu__link mt-4 bg-primary text-on-primary px-8 py-3.5 rounded-md font-sans font-medium text-sm opacity-0 translate-y-4 transition-all duration-400">Start Here →</a>
+    <a href="/member" class="mobile-menu__link mt-4 bg-primary text-on-primary px-8 py-3.5 rounded-md font-sans font-medium text-sm opacity-0 translate-y-4 transition-all duration-400">Start Here →</a>
   </div>
 
   <main class="pt-20 md:pt-24">
@@ -420,5 +420,6 @@
   <!-- Demo Trigger -->
   <button class="demo-trigger" onclick="document.dispatchEvent(new CustomEvent('openPodcastInterstitial'))">▶ Preview Interstitial</button>
 
+  <script src="/feedback-widget.js" data-user-id="" data-user-name="" data-user-email=""></script>
 </body>
 </html>

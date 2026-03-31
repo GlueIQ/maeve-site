@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import GlobalNav from './components/GlobalNav';
 
@@ -23,6 +23,26 @@ import PracticeReport from './advisor/PracticeReport';
 
 function App() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  // ── Inject Feedback Widget ──
+  useEffect(() => {
+    // Load widget script if not already loaded
+    if (document.getElementById('maeve-feedback-script')) return;
+    
+    const script = document.createElement('script');
+    script.id = 'maeve-feedback-script';
+    script.src = '/feedback-widget.js';
+    script.setAttribute('data-user-id', 'beta_user_001');
+    script.setAttribute('data-user-name', 'Beta Tester');
+    script.setAttribute('data-user-email', 'beta@mymaeve.com');
+    document.body.appendChild(script);
+
+    return () => {
+      const widget = document.getElementById('maeve-feedback-widget');
+      if (widget) widget.remove();
+      script.remove();
+    };
+  }, []);
 
   return (
     <>

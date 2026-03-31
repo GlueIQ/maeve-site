@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/member/:match*",
+      "destination": "/portal-app/index.html"
+    },
+    {
+      "source": "/member",
+      "destination": "/portal-app/index.html"
+    },
+    {
+      "source": "/advisor/:match*",
+      "destination": "/portal-app/index.html"
+    },
+    {
+      "source": "/advisor",
+      "destination": "/portal-app/index.html"
+    }
+  ]
+}
