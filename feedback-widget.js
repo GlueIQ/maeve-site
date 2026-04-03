@@ -24,9 +24,22 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2a3hxamx2Z3R3ZHNldHNnZ2RwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5MjYzODIsImV4cCI6MjA5MDUwMjM4Mn0.9uJPgkA8bUFuosC1jzgF_RIxSR8_jZIYw9vF17fwGXU';
   const STORAGE_TOGGLE_KEY = 'maeve-feedback-beta';
   const STORAGE_USER_KEY = 'maeve-feedback-user';
-  const MAX_FILE_SIZE = 5 * 1024 * 1024;
-  const MAX_ATTACHMENTS = 3;
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  const MAX_ATTACHMENTS = 5;
   const DESC_MIN_LENGTH = 20;
+
+  const ALLOWED_TYPES = {
+    'image/png': { ext: '.png', icon: '🖼️', label: 'PNG' },
+    'image/jpeg': { ext: '.jpg', icon: '🖼️', label: 'JPEG' },
+    'image/gif': { ext: '.gif', icon: '🖼️', label: 'GIF' },
+    'image/webp': { ext: '.webp', icon: '🖼️', label: 'WebP' },
+    'application/pdf': { ext: '.pdf', icon: '📄', label: 'PDF' },
+    'application/msword': { ext: '.doc', icon: '📝', label: 'Word' },
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': { ext: '.docx', icon: '📝', label: 'Word' },
+    'application/vnd.ms-excel': { ext: '.xls', icon: '📊', label: 'Excel' },
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': { ext: '.xlsx', icon: '📊', label: 'Excel' },
+  };
+  const ACCEPTED_EXTENSIONS = '.png,.jpg,.jpeg,.gif,.webp,.pdf,.doc,.docx,.xls,.xlsx';
 
   // ── Supabase REST helpers ──
   function supabaseFetch(table, options = {}) {
@@ -260,16 +273,105 @@
       }
       .mfb-priority-btn.active { border-color: #486554; background: rgba(72,101,84,0.04); color: #001a0e; }
       
-      .mfb-actions-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-      .mfb-action-btn {
-        display: flex; align-items: center; gap: 6px; padding: 8px 12px; font-size: 12px;
-        font-weight: 500; color: #486554; background: rgba(72,101,84,0.04);
-        border: 1px solid rgba(72,101,84,0.2); border-radius: 8px; cursor: pointer;
-        transition: background 0.2s;
+      /* ── Drop zone ── */
+      .mfb-dropzone {
+        position: relative;
+        border: 2px dashed rgba(72,101,84,0.25);
+        border-radius: 12px; padding: 20px 16px;
+        text-align: center; cursor: pointer;
+        transition: all 0.25s ease;
+        background: rgba(72,101,84,0.02);
+        margin-bottom: 12px;
       }
-      .mfb-action-btn:hover { background: rgba(72,101,84,0.08); }
-      .mfb-attached { font-size: 11px; color: #059669; }
-      
+      .mfb-dropzone:hover {
+        border-color: rgba(72,101,84,0.45);
+        background: rgba(72,101,84,0.04);
+      }
+      .mfb-dropzone.drag-over {
+        border-color: #486554;
+        background: rgba(72,101,84,0.08);
+        box-shadow: 0 0 0 4px rgba(72,101,84,0.08);
+      }
+      .mfb-dropzone-icon {
+        font-size: 28px; margin-bottom: 8px;
+        opacity: 0.6; transition: opacity 0.2s;
+      }
+      .mfb-dropzone:hover .mfb-dropzone-icon,
+      .mfb-dropzone.drag-over .mfb-dropzone-icon { opacity: 1; }
+      .mfb-dropzone-text {
+        font-size: 13px; font-weight: 500; color: #486554;
+        margin-bottom: 4px;
+      }
+      .mfb-dropzone-hint {
+        font-size: 11px; color: rgba(26,28,26,0.4);
+        line-height: 1.4;
+      }
+      .mfb-dropzone-browse {
+        color: #486554; font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .mfb-dropzone-types {
+        display: flex; justify-content: center; gap: 6px;
+        margin-top: 10px; flex-wrap: wrap;
+      }
+      .mfb-type-tag {
+        display: inline-flex; align-items: center; gap: 3px;
+        padding: 2px 8px; font-size: 10px; font-weight: 500;
+        letter-spacing: 0.3px;
+        background: rgba(72,101,84,0.06);
+        color: rgba(26,28,26,0.5);
+        border-radius: 999px;
+      }
+
+      /* ── File chips (improved) ── */
+      .mfb-file-chips {
+        display: flex; flex-direction: column; gap: 6px;
+        margin-bottom: 12px;
+      }
+      .mfb-file-chip {
+        display: flex; align-items: center; gap: 8px;
+        padding: 8px 10px;
+        font-size: 12px; background: #fdfbf7;
+        border: 1px solid #efeeeb;
+        border-radius: 10px; color: #1a1c1a;
+        transition: border-color 0.2s;
+      }
+      .mfb-file-chip:hover { border-color: rgba(72,101,84,0.3); }
+      .mfb-file-chip-icon {
+        width: 28px; height: 28px; display: flex;
+        align-items: center; justify-content: center;
+        font-size: 16px; border-radius: 8px;
+        flex-shrink: 0;
+      }
+      .mfb-file-chip-icon.img  { background: rgba(99,102,241,0.08); }
+      .mfb-file-chip-icon.pdf  { background: rgba(239,68,68,0.08); }
+      .mfb-file-chip-icon.word { background: rgba(37,99,235,0.08); }
+      .mfb-file-chip-icon.excel{ background: rgba(22,163,74,0.08); }
+      .mfb-file-chip-info { flex: 1; min-width: 0; }
+      .mfb-file-chip-name {
+        font-weight: 500; font-size: 12px;
+        white-space: nowrap; overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .mfb-file-chip-meta {
+        font-size: 10px; color: rgba(26,28,26,0.4);
+        margin-top: 1px;
+      }
+      .mfb-file-remove {
+        color: rgba(26,28,26,0.3); cursor: pointer;
+        background: none; border: none; font-size: 16px;
+        padding: 4px; border-radius: 6px;
+        transition: all 0.15s; flex-shrink: 0;
+        line-height: 1;
+      }
+      .mfb-file-remove:hover { color: #E11D48; background: rgba(225,29,72,0.06); }
+
+      .mfb-file-error {
+        font-size: 11px; color: #E11D48; margin-top: -6px;
+        margin-bottom: 12px; padding: 0 4px;
+      }
+
       .mfb-context {
         background: #fdfbf7; border-radius: 8px; padding: 12px; font-size: 11px;
         color: rgba(26,28,26,0.4); margin-bottom: 16px; line-height: 1.5;
@@ -301,14 +403,6 @@
         width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
         border-top-color: #fff; border-radius: 50%; animation: mfb-spin 0.6s linear infinite;
       }
-      
-      .mfb-file-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
-      .mfb-file-chip {
-        display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px;
-        font-size: 11px; background: #fdfbf7; border: 1px solid #efeeeb;
-        border-radius: 999px; color: rgba(26,28,26,0.6);
-      }
-      .mfb-file-remove { color: #E11D48; cursor: pointer; background: none; border: none; font-size: 12px; }
       
       .mfb-field { margin-bottom: 16px; }
       .mfb-char-count { font-size: 10px; color: rgba(26,28,26,0.3); text-align: right; margin-top: 4px; }
@@ -561,15 +655,49 @@
             </div>
           </div>
           
-          <div class="mfb-actions-row">
-            <button class="mfb-action-btn" id="mfb-attach-btn">📎 Attach Files (${files.length}/${MAX_ATTACHMENTS})</button>
-            <input type="file" id="mfb-file-input" accept=".png,.jpg,.jpeg,.gif,.webp" multiple style="display:none">
-          </div>
           ${files.length > 0 ? `
             <div class="mfb-file-chips">
-              ${files.map((f, i) => `<span class="mfb-file-chip">${escapeHtml(f.name)} <button class="mfb-file-remove" data-index="${i}">×</button></span>`).join('')}
+              ${files.map((f, i) => {
+                const info = ALLOWED_TYPES[f.type] || { icon: '📎', label: 'File' };
+                const sizeStr = f.size < 1024 ? f.size + ' B'
+                  : f.size < 1048576 ? (f.size / 1024).toFixed(1) + ' KB'
+                  : (f.size / 1048576).toFixed(1) + ' MB';
+                const cssClass = f.type.startsWith('image/') ? 'img'
+                  : f.type === 'application/pdf' ? 'pdf'
+                  : f.type.includes('word') || f.type.includes('msword') ? 'word'
+                  : f.type.includes('excel') || f.type.includes('sheet') ? 'excel'
+                  : 'img';
+                return `<div class="mfb-file-chip">
+                  <span class="mfb-file-chip-icon ${cssClass}">${info.icon}</span>
+                  <div class="mfb-file-chip-info">
+                    <div class="mfb-file-chip-name">${escapeHtml(f.name)}</div>
+                    <div class="mfb-file-chip-meta">${info.label} · ${sizeStr}</div>
+                  </div>
+                  <button class="mfb-file-remove" data-index="${i}">×</button>
+                </div>`;
+              }).join('')}
             </div>
           ` : ''}
+
+          <div class="mfb-dropzone" id="mfb-dropzone">
+            <input type="file" id="mfb-file-input" accept="${ACCEPTED_EXTENSIONS}" multiple style="position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2;">
+            <div class="mfb-dropzone-icon">📁</div>
+            <div class="mfb-dropzone-text">
+              Drag & drop files here or <span class="mfb-dropzone-browse">browse</span>
+            </div>
+            <div class="mfb-dropzone-hint">
+              ${files.length >= MAX_ATTACHMENTS
+                ? `Maximum ${MAX_ATTACHMENTS} files reached`
+                : `Up to ${MAX_ATTACHMENTS - files.length} more · 10 MB max per file`}
+            </div>
+            <div class="mfb-dropzone-types">
+              <span class="mfb-type-tag">🖼️ Images</span>
+              <span class="mfb-type-tag">📄 PDF</span>
+              <span class="mfb-type-tag">📝 Word</span>
+              <span class="mfb-type-tag">📊 Excel</span>
+            </div>
+          </div>
+          <div class="mfb-file-error" id="mfb-file-error" style="display:none"></div>
           
           <div class="mfb-context">
             <div class="mfb-context-title">Auto-captured context:</div>
@@ -595,17 +723,75 @@
         body.querySelector('#mfb-title').oninput = (e) => { title = e.target.value; };
         body.querySelector('#mfb-desc').oninput = (e) => { description = e.target.value; };
         
+        const dropzone = body.querySelector('#mfb-dropzone');
         const fileInput = body.querySelector('#mfb-file-input');
-        body.querySelector('#mfb-attach-btn').onclick = () => fileInput.click();
-        fileInput.onchange = (e) => {
-          const newFiles = Array.from(e.target.files).filter(f => 
-            f.size <= MAX_FILE_SIZE && ['image/png','image/jpeg','image/gif','image/webp'].includes(f.type)
-          );
-          files = [...files, ...newFiles].slice(0, MAX_ATTACHMENTS);
+        const fileError = body.querySelector('#mfb-file-error');
+
+        function processFiles(incoming) {
+          let fileErr = '';
+          const valid = [];
+          for (const f of incoming) {
+            if (!ALLOWED_TYPES[f.type]) {
+              fileErr = `"${f.name}" is not a supported file type.`;
+              continue;
+            }
+            if (f.size > MAX_FILE_SIZE) {
+              fileErr = `"${f.name}" exceeds the 10 MB limit.`;
+              continue;
+            }
+            valid.push(f);
+          }
+          if (files.length + valid.length > MAX_ATTACHMENTS) {
+            fileErr = `Maximum ${MAX_ATTACHMENTS} files allowed.`;
+          }
+          files = [...files, ...valid].slice(0, MAX_ATTACHMENTS);
+          if (fileErr && fileError) {
+            fileError.textContent = fileErr;
+            fileError.style.display = 'block';
+            setTimeout(() => { if (fileError) fileError.style.display = 'none'; }, 3500);
+          }
           renderOverlay();
-        };
+        }
+
+        fileInput.onchange = (e) => processFiles(Array.from(e.target.files));
+
+        // Drag & drop handlers
+        dropzone.addEventListener('dragover', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          dropzone.classList.add('drag-over');
+        });
+        dropzone.addEventListener('dragleave', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          dropzone.classList.remove('drag-over');
+        });
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          dropzone.classList.remove('drag-over');
+          if (e.dataTransfer && e.dataTransfer.files.length) {
+            processFiles(Array.from(e.dataTransfer.files));
+          }
+        });
+
+        // Paste handler for screenshots
+        document.addEventListener('paste', function mfbPaste(e) {
+          if (!modalOpen) { document.removeEventListener('paste', mfbPaste); return; }
+          const items = e.clipboardData && e.clipboardData.items;
+          if (!items) return;
+          const pastedFiles = [];
+          for (const item of items) {
+            if (item.kind === 'file') {
+              const blob = item.getAsFile();
+              if (blob) pastedFiles.push(blob);
+            }
+          }
+          if (pastedFiles.length) {
+            e.preventDefault();
+            processFiles(pastedFiles);
+          }
+        });
+
         body.querySelectorAll('.mfb-file-remove').forEach(btn => {
-          btn.onclick = () => { files.splice(parseInt(btn.dataset.index), 1); renderOverlay(); };
+          btn.onclick = (e) => { e.stopPropagation(); files.splice(parseInt(btn.dataset.index), 1); renderOverlay(); };
         });
         
         body.querySelector('#mfb-submit').onclick = async () => {

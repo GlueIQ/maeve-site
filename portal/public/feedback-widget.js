@@ -1,19 +1,20 @@
 /* ═══════════════════════════════════════════════════
    MAEVE FEEDBACK WIDGET — Standalone Embed Script
-   For use on the static site and Vite portal
+   For use on the static site and Management Portal
    ═══════════════════════════════════════════════════
    
    Usage: Add this before </body>:
-   <script src="https://your-domain/feedback-widget.js" 
-     data-supabase-url="…" 
-     data-supabase-key="…"
-     data-user-id="…"
+   <script src="https://mymaeve.com/feedback-widget.js" 
+     data-user-id="…" 
      data-user-name="…"
      data-user-email="…"
    ></script>
    
    Or initialize manually:
-   window.MaeveFeedback.init({ userId, userName, userEmail, supabaseUrl, supabaseKey });
+   window.MaeveFeedback.init({ userId, userName, userEmail });
+   
+   Beta access is controlled via a hidden toggle below the footer.
+   Users must know where to look — there are no visible labels.
 */
 
 (function() {
@@ -21,10 +22,24 @@
 
   const SUPABASE_URL = 'https://wvkxqjlvgtwdsetsggdp.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind2a3hxamx2Z3R3ZHNldHNnZ2RwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ5MjYzODIsImV4cCI6MjA5MDUwMjM4Mn0.9uJPgkA8bUFuosC1jzgF_RIxSR8_jZIYw9vF17fwGXU';
-  const STORAGE_TOGGLE_KEY = 'maeve-feedback-toggle';
-  const MAX_FILE_SIZE = 5 * 1024 * 1024;
-  const MAX_ATTACHMENTS = 3;
+  const STORAGE_TOGGLE_KEY = 'maeve-feedback-beta';
+  const STORAGE_USER_KEY = 'maeve-feedback-user';
+  const MAX_FILE_SIZE = 10 * 1024 * 1024;
+  const MAX_ATTACHMENTS = 5;
   const DESC_MIN_LENGTH = 20;
+
+  const ALLOWED_TYPES = {
+    'image/png': { ext: '.png', icon: '🖼️', label: 'PNG' },
+    'image/jpeg': { ext: '.jpg', icon: '🖼️', label: 'JPEG' },
+    'image/gif': { ext: '.gif', icon: '🖼️', label: 'GIF' },
+    'image/webp': { ext: '.webp', icon: '🖼️', label: 'WebP' },
+    'application/pdf': { ext: '.pdf', icon: '📄', label: 'PDF' },
+    'application/msword': { ext: '.doc', icon: '📝', label: 'Word' },
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': { ext: '.docx', icon: '📝', label: 'Word' },
+    'application/vnd.ms-excel': { ext: '.xls', icon: '📊', label: 'Excel' },
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': { ext: '.xlsx', icon: '📊', label: 'Excel' },
+  };
+  const ACCEPTED_EXTENSIONS = '.png,.jpg,.jpeg,.gif,.webp,.pdf,.doc,.docx,.xls,.xlsx';
 
   // ── Supabase REST helpers ──
   function supabaseFetch(table, options = {}) {
@@ -42,13 +57,6 @@
       headers,
       body: body ? JSON.stringify(body) : undefined,
     }).then(r => r.json());
-  }
-
-  async function checkAccess(userId) {
-    const data = await supabaseFetch('feedback_users', {
-      params: `?user_id=eq.${encodeURIComponent(userId)}&enabled=eq.true&select=enabled&limit=1`,
-    });
-    return Array.isArray(data) && data.length > 0;
   }
 
   async function createTicket(payload) {
@@ -101,6 +109,30 @@
     });
   }
 
+  // ── Beta access check ──
+  async function checkBetaAccess(email) {
+    const data = await supabaseFetch('feedback_users', {
+      params: `?user_email=eq.${encodeURIComponent(email)}&enabled=eq.true&select=user_id,user_name,user_email`,
+    });
+    if (Array.isArray(data) && data.length > 0) return data[0];
+    return null;
+  }
+
+  function getStoredUser() {
+    try {
+      const raw = localStorage.getItem(STORAGE_USER_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch { return null; }
+  }
+
+  function storeUser(user) {
+    localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(user));
+  }
+
+  function clearUser() {
+    localStorage.removeItem(STORAGE_USER_KEY);
+  }
+
   // ── Widget UI ──
   function injectStyles() {
     if (document.getElementById('maeve-feedback-styles')) return;
@@ -111,25 +143,73 @@
       
       .mfb-widget * { box-sizing: border-box; font-family: 'DM Sans', sans-serif; }
       
-      .mfb-toggle {
-        position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-        z-index: 99998; display: flex; align-items: center; gap: 8px;
-        padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 500;
-        cursor: pointer; border: 1px solid #efeeeb; background: #fdfbf7; color: #486554;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s;
+      /* Beta toggle — sits below the footer */
+      .mfb-beta-toggle {
+        display: flex; justify-content: center; align-items: center;
+        gap: 8px; padding: 16px 0 10px;
+        user-select: none;
       }
-      .mfb-toggle.active { background: #486554; color: #fff; border-color: #486554; }
-      .mfb-toggle-dot {
-        width: 8px; height: 8px; border-radius: 50%; background: rgba(72,101,84,0.3);
+      .mfb-beta-label {
+        font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+        color: rgba(26,28,26,0.25); font-weight: 500;
+        cursor: pointer; transition: color 0.3s;
       }
-      .mfb-toggle.active .mfb-toggle-dot { background: #86efac; animation: mfb-pulse 2s infinite; }
+      .mfb-beta-label:hover { color: rgba(26,28,26,0.45); }
+      .mfb-beta-label.active { color: #486554; }
+      .mfb-beta-switch {
+        position: relative; width: 28px; height: 16px;
+        background: rgba(26,28,26,0.12); border-radius: 8px;
+        cursor: pointer; transition: background 0.3s; border: none; padding: 0;
+      }
+      .mfb-beta-switch.active { background: #486554; }
+      .mfb-beta-switch::after {
+        content: ''; position: absolute; top: 2px; left: 2px;
+        width: 12px; height: 12px; border-radius: 50%;
+        background: white; transition: transform 0.3s;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      }
+      .mfb-beta-switch.active::after { transform: translateX(12px); }
+
+      /* Email gate prompt */
+      .mfb-gate {
+        position: fixed; inset: 0; z-index: 100001;
+        display: flex; align-items: center; justify-content: center;
+        background: rgba(0,0,0,0.3); animation: mfb-fadeIn 0.2s ease;
+      }
+      .mfb-gate-card {
+        background: #fff; border-radius: 16px; padding: 28px;
+        width: 340px; box-shadow: 0 24px 48px rgba(0,0,0,0.15);
+        border: 1px solid #efeeeb; animation: mfb-slideUp 0.3s ease;
+      }
+      .mfb-gate-card h4 {
+        font-family: 'Noto Serif Display', serif; font-size: 18px;
+        color: #001a0e; margin: 0 0 4px;
+      }
+      .mfb-gate-card p {
+        font-size: 13px; color: rgba(26,28,26,0.5); margin: 0 0 16px;
+      }
+      .mfb-gate-row { display: flex; gap: 8px; }
+      .mfb-gate-cancel {
+        padding: 8px 16px; font-size: 13px; font-weight: 500;
+        background: #efeeeb; color: #1a1c1a; border: none;
+        border-radius: 8px; cursor: pointer;
+      }
+      .mfb-gate-submit {
+        flex: 1; padding: 8px 16px; font-size: 13px; font-weight: 500;
+        background: #486554; color: #fff; border: none;
+        border-radius: 8px; cursor: pointer;
+      }
+      .mfb-gate-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+      .mfb-gate-error {
+        font-size: 12px; color: #E11D48; margin: 8px 0 0; display: none;
+      }
       
       .mfb-fab {
-        position: fixed; bottom: 80px; right: 24px; z-index: 99998;
-        width: 56px; height: 56px; border-radius: 50%; background: #486554;
+        position: fixed; bottom: 24px; right: 24px; z-index: 99998;
+        width: 48px; height: 48px; border-radius: 50%; background: #486554;
         color: #fff; border: none; cursor: pointer; display: flex;
         align-items: center; justify-content: center;
-        box-shadow: 0 8px 24px rgba(72,101,84,0.3);
+        box-shadow: 0 4px 16px rgba(72,101,84,0.25);
         transition: all 0.2s; animation: mfb-fadeIn 0.3s ease;
       }
       .mfb-fab:hover { background: #3a5243; transform: scale(1.05); }
@@ -140,10 +220,12 @@
       }
       
       .mfb-modal {
-        position: fixed; bottom: 96px; right: 24px; z-index: 100000;
-        width: 400px; max-height: calc(100vh - 140px); background: #fff;
+        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+        z-index: 100000;
+        width: 420px; max-height: 85vh; background: #fff;
         border-radius: 16px; box-shadow: 0 24px 48px rgba(0,0,0,0.15);
         border: 1px solid #efeeeb; overflow: hidden;
+        display: flex; flex-direction: column;
         animation: mfb-slideUp 0.3s ease;
       }
       
@@ -159,7 +241,7 @@
       }
       .mfb-close:hover { background: #efeeeb; }
       
-      .mfb-body { padding: 20px; overflow-y: auto; max-height: calc(100vh - 260px); }
+      .mfb-body { padding: 20px; overflow-y: auto; flex: 1; min-height: 0; }
       
       .mfb-type-row { display: flex; gap: 8px; margin-bottom: 16px; }
       .mfb-type-btn {
@@ -191,16 +273,105 @@
       }
       .mfb-priority-btn.active { border-color: #486554; background: rgba(72,101,84,0.04); color: #001a0e; }
       
-      .mfb-actions-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
-      .mfb-action-btn {
-        display: flex; align-items: center; gap: 6px; padding: 8px 12px; font-size: 12px;
-        font-weight: 500; color: #486554; background: rgba(72,101,84,0.04);
-        border: 1px solid rgba(72,101,84,0.2); border-radius: 8px; cursor: pointer;
-        transition: background 0.2s;
+      /* ── Drop zone ── */
+      .mfb-dropzone {
+        position: relative;
+        border: 2px dashed rgba(72,101,84,0.25);
+        border-radius: 12px; padding: 20px 16px;
+        text-align: center; cursor: pointer;
+        transition: all 0.25s ease;
+        background: rgba(72,101,84,0.02);
+        margin-bottom: 12px;
       }
-      .mfb-action-btn:hover { background: rgba(72,101,84,0.08); }
-      .mfb-attached { font-size: 11px; color: #059669; }
-      
+      .mfb-dropzone:hover {
+        border-color: rgba(72,101,84,0.45);
+        background: rgba(72,101,84,0.04);
+      }
+      .mfb-dropzone.drag-over {
+        border-color: #486554;
+        background: rgba(72,101,84,0.08);
+        box-shadow: 0 0 0 4px rgba(72,101,84,0.08);
+      }
+      .mfb-dropzone-icon {
+        font-size: 28px; margin-bottom: 8px;
+        opacity: 0.6; transition: opacity 0.2s;
+      }
+      .mfb-dropzone:hover .mfb-dropzone-icon,
+      .mfb-dropzone.drag-over .mfb-dropzone-icon { opacity: 1; }
+      .mfb-dropzone-text {
+        font-size: 13px; font-weight: 500; color: #486554;
+        margin-bottom: 4px;
+      }
+      .mfb-dropzone-hint {
+        font-size: 11px; color: rgba(26,28,26,0.4);
+        line-height: 1.4;
+      }
+      .mfb-dropzone-browse {
+        color: #486554; font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .mfb-dropzone-types {
+        display: flex; justify-content: center; gap: 6px;
+        margin-top: 10px; flex-wrap: wrap;
+      }
+      .mfb-type-tag {
+        display: inline-flex; align-items: center; gap: 3px;
+        padding: 2px 8px; font-size: 10px; font-weight: 500;
+        letter-spacing: 0.3px;
+        background: rgba(72,101,84,0.06);
+        color: rgba(26,28,26,0.5);
+        border-radius: 999px;
+      }
+
+      /* ── File chips (improved) ── */
+      .mfb-file-chips {
+        display: flex; flex-direction: column; gap: 6px;
+        margin-bottom: 12px;
+      }
+      .mfb-file-chip {
+        display: flex; align-items: center; gap: 8px;
+        padding: 8px 10px;
+        font-size: 12px; background: #fdfbf7;
+        border: 1px solid #efeeeb;
+        border-radius: 10px; color: #1a1c1a;
+        transition: border-color 0.2s;
+      }
+      .mfb-file-chip:hover { border-color: rgba(72,101,84,0.3); }
+      .mfb-file-chip-icon {
+        width: 28px; height: 28px; display: flex;
+        align-items: center; justify-content: center;
+        font-size: 16px; border-radius: 8px;
+        flex-shrink: 0;
+      }
+      .mfb-file-chip-icon.img  { background: rgba(99,102,241,0.08); }
+      .mfb-file-chip-icon.pdf  { background: rgba(239,68,68,0.08); }
+      .mfb-file-chip-icon.word { background: rgba(37,99,235,0.08); }
+      .mfb-file-chip-icon.excel{ background: rgba(22,163,74,0.08); }
+      .mfb-file-chip-info { flex: 1; min-width: 0; }
+      .mfb-file-chip-name {
+        font-weight: 500; font-size: 12px;
+        white-space: nowrap; overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .mfb-file-chip-meta {
+        font-size: 10px; color: rgba(26,28,26,0.4);
+        margin-top: 1px;
+      }
+      .mfb-file-remove {
+        color: rgba(26,28,26,0.3); cursor: pointer;
+        background: none; border: none; font-size: 16px;
+        padding: 4px; border-radius: 6px;
+        transition: all 0.15s; flex-shrink: 0;
+        line-height: 1;
+      }
+      .mfb-file-remove:hover { color: #E11D48; background: rgba(225,29,72,0.06); }
+
+      .mfb-file-error {
+        font-size: 11px; color: #E11D48; margin-top: -6px;
+        margin-bottom: 12px; padding: 0 4px;
+      }
+
       .mfb-context {
         background: #fdfbf7; border-radius: 8px; padding: 12px; font-size: 11px;
         color: rgba(26,28,26,0.4); margin-bottom: 16px; line-height: 1.5;
@@ -233,30 +404,29 @@
         border-top-color: #fff; border-radius: 50%; animation: mfb-spin 0.6s linear infinite;
       }
       
-      .mfb-file-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
-      .mfb-file-chip {
-        display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px;
-        font-size: 11px; background: #fdfbf7; border: 1px solid #efeeeb;
-        border-radius: 999px; color: rgba(26,28,26,0.6);
-      }
-      .mfb-file-remove { color: #E11D48; cursor: pointer; background: none; border: none; font-size: 12px; }
-      
       .mfb-field { margin-bottom: 16px; }
       .mfb-char-count { font-size: 10px; color: rgba(26,28,26,0.3); text-align: right; margin-top: 4px; }
       
       @keyframes mfb-fadeIn { from { opacity: 0; } to { opacity: 1; } }
       @keyframes mfb-slideUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
       @keyframes mfb-spin { to { transform: rotate(360deg); } }
-      @keyframes mfb-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+      @keyframes mfb-gentle-pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.3; } }
     `;
     document.head.appendChild(style);
   }
 
   function createWidget(config) {
-    const { userId, userName, userEmail } = config;
-    let active = localStorage.getItem(STORAGE_TOGGLE_KEY) === 'true';
+    // Resolve user identity: stored > config > defaults
+    let storedUser = getStoredUser();
+    let currentUser = storedUser || {
+      userId: config.userId || '',
+      userName: config.userName || 'Anonymous',
+      userEmail: config.userEmail || '',
+    };
+    let active = localStorage.getItem(STORAGE_TOGGLE_KEY) === 'true' && !!storedUser;
     let modalOpen = false;
-    let formState = 'idle'; // idle | form | submitting | success
+    let gateOpen = false;
+    let formState = 'idle';
     let type = 'feedback';
     let priority = 'medium';
     let title = '';
@@ -269,27 +439,143 @@
     root.className = 'mfb-widget';
     document.body.appendChild(root);
 
-    function render() {
+    // Create beta toggle and append after the footer
+    const betaToggle = document.createElement('div');
+    betaToggle.className = 'mfb-beta-toggle';
+
+    const label = document.createElement('span');
+    label.className = `mfb-beta-label ${active ? 'active' : ''}`;
+    label.textContent = 'beta';
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = `mfb-beta-switch ${active ? 'active' : ''}`;
+    toggleBtn.setAttribute('aria-label', 'Toggle beta feedback mode');
+
+    function activateBeta(user) {
+      currentUser = user;
+      storeUser(user);
+      active = true;
+      localStorage.setItem(STORAGE_TOGGLE_KEY, 'true');
+      toggleBtn.className = 'mfb-beta-switch active';
+      label.className = 'mfb-beta-label active';
+      gateOpen = false;
+      renderOverlay();
+    }
+
+    function deactivateBeta() {
+      active = false;
+      localStorage.setItem(STORAGE_TOGGLE_KEY, 'false');
+      clearUser();
+      storedUser = null;
+      toggleBtn.className = 'mfb-beta-switch';
+      label.className = 'mfb-beta-label';
+      modalOpen = false;
+      resetForm();
+      renderOverlay();
+    }
+
+    function handleToggle() {
+      if (active) {
+        deactivateBeta();
+      } else {
+        // Show email gate
+        gateOpen = true;
+        renderOverlay();
+      }
+    }
+    label.addEventListener('click', handleToggle);
+    toggleBtn.addEventListener('click', handleToggle);
+
+    betaToggle.appendChild(label);
+    betaToggle.appendChild(toggleBtn);
+
+    // Insert the toggle after footer or at end of body
+    const footer = document.querySelector('footer');
+    if (footer && footer.parentNode) {
+      footer.parentNode.insertBefore(betaToggle, footer.nextSibling);
+    } else {
+      const main = document.querySelector('main') || document.body;
+      main.appendChild(betaToggle);
+    }
+
+    function renderOverlay() {
       root.innerHTML = '';
 
-      // Toggle pill
-      const toggle = document.createElement('button');
-      toggle.className = `mfb-toggle ${active ? 'active' : ''}`;
-      toggle.innerHTML = `<span class="mfb-toggle-dot"></span> ${active ? 'Feedback Mode On' : 'Enable Feedback'}`;
-      toggle.onclick = () => {
-        active = !active;
-        localStorage.setItem(STORAGE_TOGGLE_KEY, String(active));
-        if (!active) { modalOpen = false; resetForm(); }
-        render();
-      };
-      root.appendChild(toggle);
+      // Email gate prompt
+      if (gateOpen) {
+        const gate = document.createElement('div');
+        gate.className = 'mfb-gate';
+        gate.onclick = (e) => { if (e.target === gate) { gateOpen = false; renderOverlay(); } };
 
-      // FAB
+        const card = document.createElement('div');
+        card.className = 'mfb-gate-card';
+        card.innerHTML = `
+          <h4>Beta Access</h4>
+          <p>Enter your email to enable feedback mode.</p>
+          <input type="email" placeholder="you@company.com" style="
+            width: 100%; padding: 10px 12px; font-size: 14px;
+            border: 1px solid #efeeeb; border-radius: 8px;
+            margin-bottom: 12px; font-family: 'DM Sans', sans-serif;
+            outline: none; transition: border-color 0.2s;
+          " />
+          <div class="mfb-gate-error">Email not found or not authorized for beta access.</div>
+          <div class="mfb-gate-row">
+            <button class="mfb-gate-cancel">Cancel</button>
+            <button class="mfb-gate-submit">Verify</button>
+          </div>
+        `;
+
+        const input = card.querySelector('input');
+        const errEl = card.querySelector('.mfb-gate-error');
+        const submitBtn = card.querySelector('.mfb-gate-submit');
+        const cancelBtn = card.querySelector('.mfb-gate-cancel');
+
+        input.addEventListener('focus', () => { input.style.borderColor = '#486554'; });
+        input.addEventListener('blur', () => { input.style.borderColor = '#efeeeb'; });
+
+        cancelBtn.onclick = () => { gateOpen = false; renderOverlay(); };
+
+        submitBtn.onclick = async () => {
+          const email = input.value.trim().toLowerCase();
+          if (!email) { input.style.borderColor = '#E11D48'; return; }
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Checking…';
+          errEl.style.display = 'none';
+          try {
+            const user = await checkBetaAccess(email);
+            if (user) {
+              activateBeta({
+                userId: user.user_id,
+                userName: user.user_name,
+                userEmail: user.user_email,
+              });
+            } else {
+              errEl.style.display = 'block';
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Verify';
+            }
+          } catch {
+            errEl.textContent = 'Something went wrong. Try again.';
+            errEl.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Verify';
+          }
+        };
+
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') submitBtn.click(); });
+
+        gate.appendChild(card);
+        root.appendChild(gate);
+        setTimeout(() => input.focus(), 100);
+        return;
+      }
+
+      // FAB — only when active and modal is closed
       if (active && !modalOpen) {
         const fab = document.createElement('button');
         fab.className = 'mfb-fab';
-        fab.innerHTML = '<svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>';
-        fab.onclick = () => { modalOpen = true; formState = 'form'; render(); };
+        fab.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"/></svg>';
+        fab.onclick = () => { modalOpen = true; formState = 'form'; renderOverlay(); };
         root.appendChild(fab);
       }
 
@@ -297,7 +583,7 @@
       if (modalOpen) {
         const backdrop = document.createElement('div');
         backdrop.className = 'mfb-backdrop';
-        backdrop.onclick = () => { modalOpen = false; resetForm(); render(); };
+        backdrop.onclick = () => { modalOpen = false; resetForm(); renderOverlay(); };
         root.appendChild(backdrop);
 
         const modal = document.createElement('div');
@@ -320,7 +606,7 @@
         `;
         root.appendChild(modal);
 
-        modal.querySelector('#mfb-close-btn').onclick = () => { modalOpen = false; resetForm(); render(); };
+        modal.querySelector('#mfb-close-btn').onclick = () => { modalOpen = false; resetForm(); renderOverlay(); };
 
         const body = modal.querySelector('#mfb-body');
 
@@ -332,7 +618,7 @@
               <p>Your feedback has been submitted. The Maeve team will review it shortly.</p>
             </div>
           `;
-          setTimeout(() => { modalOpen = false; resetForm(); render(); }, 2500);
+          setTimeout(() => { modalOpen = false; resetForm(); renderOverlay(); }, 2500);
           return;
         }
 
@@ -369,21 +655,55 @@
             </div>
           </div>
           
-          <div class="mfb-actions-row">
-            <button class="mfb-action-btn" id="mfb-attach-btn">📎 Attach Files (${files.length}/${MAX_ATTACHMENTS})</button>
-            <input type="file" id="mfb-file-input" accept=".png,.jpg,.jpeg,.gif,.webp" multiple style="display:none">
-          </div>
           ${files.length > 0 ? `
             <div class="mfb-file-chips">
-              ${files.map((f, i) => `<span class="mfb-file-chip">${escapeHtml(f.name)} <button class="mfb-file-remove" data-index="${i}">×</button></span>`).join('')}
+              ${files.map((f, i) => {
+                const info = ALLOWED_TYPES[f.type] || { icon: '📎', label: 'File' };
+                const sizeStr = f.size < 1024 ? f.size + ' B'
+                  : f.size < 1048576 ? (f.size / 1024).toFixed(1) + ' KB'
+                  : (f.size / 1048576).toFixed(1) + ' MB';
+                const cssClass = f.type.startsWith('image/') ? 'img'
+                  : f.type === 'application/pdf' ? 'pdf'
+                  : f.type.includes('word') || f.type.includes('msword') ? 'word'
+                  : f.type.includes('excel') || f.type.includes('sheet') ? 'excel'
+                  : 'img';
+                return `<div class="mfb-file-chip">
+                  <span class="mfb-file-chip-icon ${cssClass}">${info.icon}</span>
+                  <div class="mfb-file-chip-info">
+                    <div class="mfb-file-chip-name">${escapeHtml(f.name)}</div>
+                    <div class="mfb-file-chip-meta">${info.label} · ${sizeStr}</div>
+                  </div>
+                  <button class="mfb-file-remove" data-index="${i}">×</button>
+                </div>`;
+              }).join('')}
             </div>
           ` : ''}
+
+          <div class="mfb-dropzone" id="mfb-dropzone">
+            <input type="file" id="mfb-file-input" accept="${ACCEPTED_EXTENSIONS}" multiple style="position:absolute;inset:0;opacity:0;cursor:pointer;z-index:2;">
+            <div class="mfb-dropzone-icon">📁</div>
+            <div class="mfb-dropzone-text">
+              Drag & drop files here or <span class="mfb-dropzone-browse">browse</span>
+            </div>
+            <div class="mfb-dropzone-hint">
+              ${files.length >= MAX_ATTACHMENTS
+                ? `Maximum ${MAX_ATTACHMENTS} files reached`
+                : `Up to ${MAX_ATTACHMENTS - files.length} more · 10 MB max per file`}
+            </div>
+            <div class="mfb-dropzone-types">
+              <span class="mfb-type-tag">🖼️ Images</span>
+              <span class="mfb-type-tag">📄 PDF</span>
+              <span class="mfb-type-tag">📝 Word</span>
+              <span class="mfb-type-tag">📊 Excel</span>
+            </div>
+          </div>
+          <div class="mfb-file-error" id="mfb-file-error" style="display:none"></div>
           
           <div class="mfb-context">
             <div class="mfb-context-title">Auto-captured context:</div>
             <div>Page: ${window.location.pathname}</div>
             <div>Viewport: ${window.innerWidth}×${window.innerHeight}</div>
-            <div>Submitted by: ${escapeHtml(userName)}</div>
+            <div>Submitted by: ${escapeHtml(currentUser.userName)}</div>
           </div>
           
           ${error ? `<div class="mfb-error">${escapeHtml(error)}</div>` : ''}
@@ -395,25 +715,83 @@
 
         // Event listeners
         body.querySelectorAll('.mfb-type-btn').forEach(btn => {
-          btn.onclick = () => { type = btn.dataset.type; render(); };
+          btn.onclick = () => { type = btn.dataset.type; renderOverlay(); };
         });
         body.querySelectorAll('.mfb-priority-btn').forEach(btn => {
-          btn.onclick = () => { priority = btn.dataset.priority; render(); };
+          btn.onclick = () => { priority = btn.dataset.priority; renderOverlay(); };
         });
         body.querySelector('#mfb-title').oninput = (e) => { title = e.target.value; };
         body.querySelector('#mfb-desc').oninput = (e) => { description = e.target.value; };
         
+        const dropzone = body.querySelector('#mfb-dropzone');
         const fileInput = body.querySelector('#mfb-file-input');
-        body.querySelector('#mfb-attach-btn').onclick = () => fileInput.click();
-        fileInput.onchange = (e) => {
-          const newFiles = Array.from(e.target.files).filter(f => 
-            f.size <= MAX_FILE_SIZE && ['image/png','image/jpeg','image/gif','image/webp'].includes(f.type)
-          );
-          files = [...files, ...newFiles].slice(0, MAX_ATTACHMENTS);
-          render();
-        };
+        const fileError = body.querySelector('#mfb-file-error');
+
+        function processFiles(incoming) {
+          let fileErr = '';
+          const valid = [];
+          for (const f of incoming) {
+            if (!ALLOWED_TYPES[f.type]) {
+              fileErr = `"${f.name}" is not a supported file type.`;
+              continue;
+            }
+            if (f.size > MAX_FILE_SIZE) {
+              fileErr = `"${f.name}" exceeds the 10 MB limit.`;
+              continue;
+            }
+            valid.push(f);
+          }
+          if (files.length + valid.length > MAX_ATTACHMENTS) {
+            fileErr = `Maximum ${MAX_ATTACHMENTS} files allowed.`;
+          }
+          files = [...files, ...valid].slice(0, MAX_ATTACHMENTS);
+          if (fileErr && fileError) {
+            fileError.textContent = fileErr;
+            fileError.style.display = 'block';
+            setTimeout(() => { if (fileError) fileError.style.display = 'none'; }, 3500);
+          }
+          renderOverlay();
+        }
+
+        fileInput.onchange = (e) => processFiles(Array.from(e.target.files));
+
+        // Drag & drop handlers
+        dropzone.addEventListener('dragover', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          dropzone.classList.add('drag-over');
+        });
+        dropzone.addEventListener('dragleave', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          dropzone.classList.remove('drag-over');
+        });
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault(); e.stopPropagation();
+          dropzone.classList.remove('drag-over');
+          if (e.dataTransfer && e.dataTransfer.files.length) {
+            processFiles(Array.from(e.dataTransfer.files));
+          }
+        });
+
+        // Paste handler for screenshots
+        document.addEventListener('paste', function mfbPaste(e) {
+          if (!modalOpen) { document.removeEventListener('paste', mfbPaste); return; }
+          const items = e.clipboardData && e.clipboardData.items;
+          if (!items) return;
+          const pastedFiles = [];
+          for (const item of items) {
+            if (item.kind === 'file') {
+              const blob = item.getAsFile();
+              if (blob) pastedFiles.push(blob);
+            }
+          }
+          if (pastedFiles.length) {
+            e.preventDefault();
+            processFiles(pastedFiles);
+          }
+        });
+
         body.querySelectorAll('.mfb-file-remove').forEach(btn => {
-          btn.onclick = () => { files.splice(parseInt(btn.dataset.index), 1); render(); };
+          btn.onclick = (e) => { e.stopPropagation(); files.splice(parseInt(btn.dataset.index), 1); renderOverlay(); };
         });
         
         body.querySelector('#mfb-submit').onclick = async () => {
@@ -421,11 +799,11 @@
           title = body.querySelector('#mfb-title').value;
           description = body.querySelector('#mfb-desc').value;
           
-          if (title.length < 5) { error = 'Title must be at least 5 characters.'; render(); return; }
-          if (description.length < DESC_MIN_LENGTH) { error = `Description must be at least ${DESC_MIN_LENGTH} characters.`; render(); return; }
+          if (title.length < 5) { error = 'Title must be at least 5 characters.'; renderOverlay(); return; }
+          if (description.length < DESC_MIN_LENGTH) { error = `Description must be at least ${DESC_MIN_LENGTH} characters.`; renderOverlay(); return; }
           
           formState = 'submitting';
-          render();
+          renderOverlay();
           
           try {
             const ticket = await createTicket({
@@ -434,24 +812,24 @@
               page_title: document.title,
               viewport: `${window.innerWidth}x${window.innerHeight}`,
               user_agent: navigator.userAgent,
-              submitted_by_id: userId,
-              submitted_by_name: userName,
-              submitted_by_email: userEmail,
+              submitted_by_id: currentUser.userId,
+              submitted_by_name: currentUser.userName,
+              submitted_by_email: currentUser.userEmail,
               status: 'inbox',
             });
             
-            await logActivity(ticket.id, userId, userName);
+            await logActivity(ticket.id, currentUser.userId, currentUser.userName);
             
             for (const file of files) {
               await uploadToStorage(ticket.id, file);
             }
             
             formState = 'success';
-            render();
+            renderOverlay();
           } catch (err) {
             error = err.message || 'Submission failed. Please try again.';
             formState = 'form';
-            render();
+            renderOverlay();
           }
         };
       }
@@ -467,8 +845,8 @@
       error = '';
     }
 
-    render();
-    return { destroy: () => root.remove() };
+    renderOverlay();
+    return { destroy: () => { root.remove(); betaToggle.remove(); } };
   }
 
   function escapeHtml(str) {
@@ -479,16 +857,8 @@
 
   // ── Public API ──
   window.MaeveFeedback = {
-    init: async function(config) {
+    init: function(config) {
       injectStyles();
-      
-      // Check access before rendering
-      const hasAccess = await checkAccess(config.userId);
-      if (!hasAccess) {
-        console.log('[MaeveFeedback] User does not have feedback access.');
-        return null;
-      }
-
       return createWidget(config);
     },
 
